@@ -1,0 +1,73 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :medium %><br />
+    <%= f.text_field :medium %>
+  </div>
+  <div class="field">
+    <%= f.label :classification %><br />
+    <%= f.text_field :classification %>
+  </div>
+  <div class="field">
+    <%= f.label :physical_width %><br />
+    <%= f.text_field :physical_width %>
+  </div>
+  <div class="field">
+    <%= f.label :physical_height %><br />
+    <%= f.text_field :physical_height %>
+  </div>
+  <div class="field">
+    <%= f.label :physical_depth %><br />
+    <%= f.text_field :physical_depth %>
+  </div>
+  <div class="field">
+    <%= f.label :file_width %><br />
+    <%= f.text_field :file_width %>
+  </div>
+  <div class="field">
+    <%= f.label :file_height %><br />
+    <%= f.text_field :file_height %>
+  </div>
+  <div class="field">
+    <%= f.label :tags %><br />
+    <%= f.text_field :tags %>
+  </div>
+  <div class="field">
+    <%= f.label :keywords %><br />
+    <%= f.text_field :keywords %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br />
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

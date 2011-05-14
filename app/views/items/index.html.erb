@@ -1,0 +1,49 @@
+<h1>Listing items</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Medium</th>
+    <th>Classification</th>
+    <th>Physical width</th>
+    <th>Physical height</th>
+    <th>Physical depth</th>
+    <th>File width</th>
+    <th>File height</th>
+    <th>Tags</th>
+    <th>Keywords</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @items.each do |item| %>
+  <tr>
+    <td><%= item.title %></td>
+    <td><%= item.date %></td>
+    <td><%= item.description %></td>
+    <td><%= item.medium %></td>
+    <td><%= item.classification %></td>
+    <td><%= item.physical_width %></td>
+    <td><%= item.physical_height %></td>
+    <td><%= item.physical_depth %></td>
+    <td><%= item.file_width %></td>
+    <td><%= item.file_height %></td>
+    <td><%= item.tags %></td>
+    <td><%= item.keywords %></td>
+    <td><%= item.start_date %></td>
+    <td><%= item.end_date %></td>
+    <td><%= link_to 'Show', item %></td>
+    <td><%= link_to 'Edit', edit_item_path(item) %></td>
+    <td><%= link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Item', new_item_path %>

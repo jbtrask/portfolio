@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @item.title %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @item.date %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @item.description %>
+</p>
+
+<p>
+  <b>Medium:</b>
+  <%= @item.medium %>
+</p>
+
+<p>
+  <b>Classification:</b>
+  <%= @item.classification %>
+</p>
+
+<p>
+  <b>Physical width:</b>
+  <%= @item.physical_width %>
+</p>
+
+<p>
+  <b>Physical height:</b>
+  <%= @item.physical_height %>
+</p>
+
+<p>
+  <b>Physical depth:</b>
+  <%= @item.physical_depth %>
+</p>
+
+<p>
+  <b>File width:</b>
+  <%= @item.file_width %>
+</p>
+
+<p>
+  <b>File height:</b>
+  <%= @item.file_height %>
+</p>
+
+<p>
+  <b>Tags:</b>
+  <%= @item.tags %>
+</p>
+
+<p>
+  <b>Keywords:</b>
+  <%= @item.keywords %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @item.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @item.end_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
