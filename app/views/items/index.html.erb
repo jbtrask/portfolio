@@ -1,3 +1,14 @@
+<%= render :partial => "masthead" %>
+<%= render :partial => "filters"  %>
+<div id="thumbnails"> 
+	<ul>
+		<% @thumbnails.each do |thumbnail| %> 
+			<%= render :partial => "thumbnail", :locals => { :thumbnail => thumbnail } %>
+		<% end %>
+	</ul>
+    <%= render :partial => "copyright" %>
+</div>
+<!--
 <h1>Listing items</h1>
 
 <table>
@@ -47,3 +58,4 @@
 <br />
 
 <%= link_to 'New Item', new_item_path %>
+-->
