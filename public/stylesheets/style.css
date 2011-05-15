@@ -58,6 +58,7 @@ body {
 }
 
 .thumbnail img {
+	visibility: hidden;
 	margin: 0px;
 	padding: 0px;
 	width:100%;	

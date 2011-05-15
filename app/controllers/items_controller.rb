@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
+    @thumbnails = ["thumbnail.jpg"] * 50
+    @filters = []
     @items = Item.all
 
     respond_to do |format|

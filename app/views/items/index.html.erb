@@ -1,12 +1,12 @@
-<%= render :partial => "masthead" %>
-<%= render :partial => "filters"  %>
+<%= render "masthead" %>
+<%= render :partial => "filters", :locals => { :filters => @filters }  %>
 <div id="thumbnails"> 
 	<ul>
 		<% @thumbnails.each do |thumbnail| %> 
-			<%= render :partial => "thumbnail", :locals => { :thumbnail => thumbnail } %>
+			<%= render :partial => "thumbnail", :locals => { :path => thumbnail } %>
 		<% end %>
 	</ul>
-    <%= render :partial => "copyright" %>
+    <%= render "copyright" %>
 </div>
 <!--
 <h1>Listing items</h1>
