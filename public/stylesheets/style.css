@@ -1,8 +1,42 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 body {
 	position: relative;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	background: #FFFFFF;
 	color: #000000;
+}
+
+#sidebar {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 256px;
+	height: 100%;
+	min-height: 100%;
+	background-color: #FF8888;
+}
+
+#content {
+	position: absolute;
+	top: 0px;
+	left: 256px;
+	width: 768px;
+	height: 100%;
+	min-height: 100%;
+	background-color: #8888FF;
+}
+
+.thumb {
+	float: left;
+	width: 128px;
+	height: 24.739583333333333333333333333333%;
+	margin-bottom: 0.26041666666666666666666666666667%;
+	margin-right: 0px;
+	background-color: #88FF88;
 }
 
 #masthead {

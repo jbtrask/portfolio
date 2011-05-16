@@ -1,13 +1,36 @@
+<!--
+<div id="sidebar">
+</div>
+<div id="content">
+	<% (1..4).each do |i| %> 
+		<% (1..6).each do |r| %>
+
+			<% if r == 6 %>
+	
+				<div class="thumb" style="margin-right: 0px;"></div>
+		
+			<% else %>
+				
+				<div class="thumb"></div>
+		
+		
+			<% end %>
+		<% end %>
+	<% end %>
+</div>
+-->
+
 <%= render "masthead" %>
-<%= render :partial => "filters", :locals => { :filters => @filters }  %>
+<%= render "filters" %>
 <div id="thumbnails"> 
 	<ul>
-		<% @thumbnails.each do |thumbnail| %> 
-			<%= render :partial => "thumbnail", :locals => { :path => thumbnail } %>
+		<% @items.each do |item| %> 
+			<%= render :partial => "thumbnail", :locals => { :item => item } %>
 		<% end %>
 	</ul>
     <%= render "copyright" %>
 </div>
+
 <!--
 <h1>Listing items</h1>
 
