@@ -24,7 +24,8 @@
 <%= render "filters" %>
 <div id="thumbnails"> 
 	<ul>
-		<% @items.each do |item| %> 
+		<% @items.each do |item| %>
+			<% puts item.inspect %> 
 			<%= render :partial => "thumbnail", :locals => { :item => item } %>
 		<% end %>
 	</ul>

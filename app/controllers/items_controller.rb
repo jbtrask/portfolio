@@ -2,10 +2,9 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    @thumbnails = ["thumbnail.jpg"] * 50
+     @items = Item.all
     @filters = []
-    @items = Item.all
-
+      
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @items }

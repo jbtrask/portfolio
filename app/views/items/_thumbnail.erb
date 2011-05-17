@@ -1,5 +1,5 @@
 <li class="thumbnail">
-	<a title="<%= @item.thumbnail_path %>" href="<%= item_path(123) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
-		<img alt="<%= @item.thumbnail_path %>" src="<%= image_path(@item.thumbnail_path) %>">
+	<a title="<%= item.thumbnail_path %>" href="<%= item_path(item.id) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
+		<img alt="<%= item.thumbnail_path %>" src="<%= item.thumbnail_path %>">
 	</a>
 </li>

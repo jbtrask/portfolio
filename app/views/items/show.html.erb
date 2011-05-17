@@ -1,3 +1,7 @@
+<div style="height: 100%; min-height:100%">
+<img alt="<%= @item.full_path %>" src="<%= @item.full_path %>">
+</div>
+<!--
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -70,6 +74,16 @@
   <%= @item.end_date %>
 </p>
 
+<p>
+  <b>Full path:</b>
+  <%= @item.full_path %>
+</p>
+
+<p>
+  <b>Thumbnail path:</b>
+  <%= @item.thumbnail_path %>
+</p>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
+-->

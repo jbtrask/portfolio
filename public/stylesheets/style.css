@@ -92,7 +92,7 @@ body {
 }
 
 .thumbnail img {
-	visibility: hidden;
+	visibility: visible;
 	margin: 0px;
 	padding: 0px;
 	width:100%;	
