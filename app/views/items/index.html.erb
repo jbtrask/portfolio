@@ -1,35 +1,12 @@
-<!--
-<div id="sidebar">
-</div>
-<div id="content">
-	<% (1..4).each do |i| %> 
-		<% (1..6).each do |r| %>
-
-			<% if r == 6 %>
-	
-				<div class="thumb" style="margin-right: 0px;"></div>
-		
-			<% else %>
-				
-				<div class="thumb"></div>
-		
-		
+<div id="thumbnails">
+	<ul>
+		<% thumbs = @items.shuffle.slice(0,  24) %>
+		<% (1..4).each do |r| %> 
+			<% (1..6).each do |c| %>
+				<%= render :partial => "thumbnail", :locals => { :item => thumbs[(r-1) * 6 + (c-1)], :right => (c == 6), :bottom => (r == 4) } %>
 			<% end %>
 		<% end %>
-	<% end %>
-</div>
--->
-
-<%= render "masthead" %>
-<%= render "filters" %>
-<div id="thumbnails"> 
-	<ul>
-		<% @items.each do |item| %>
-			<% puts item.inspect %> 
-			<%= render :partial => "thumbnail", :locals => { :item => item } %>
-		<% end %>
-	</ul>
-    <%= render "copyright" %>
+	</ul>	
 </div>
 
 <!--

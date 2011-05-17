@@ -1,5 +1,30 @@
-<li class="thumbnail">
-	<a title="<%= item.thumbnail_path %>" href="<%= item_path(item.id) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
-		<img alt="<%= item.thumbnail_path %>" src="<%= item.thumbnail_path %>">
-	</a>
-</li>
+<% if right %>
+	<% if bottom %>
+		<li class="thumbnail" style="margin-bottom: 0px; margin-right: 0px;">
+			<a title="<%= item.thumbnail_path %>" href="<%= item_path(item.id) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
+				<img alt="<%= item.thumbnail_path %>" src="<%= item.thumbnail_path %>">
+			</a>
+		</li>
+	<% else %>
+		<li class="thumbnail" style="margin-right: 0px;">
+			<a title="<%= item.thumbnail_path %>" href="<%= item_path(item.id) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
+				<img alt="<%= item.thumbnail_path %>" src="<%= item.thumbnail_path %>">
+			</a>
+		</li>
+	<% end %>
+<% else %>
+	<% if bottom %>
+		<li class="thumbnail" style="margin-bottom: 0px;">
+			<a title="<%= item.thumbnail_path %>" href="<%= item_path(item.id) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
+				<img alt="<%= item.thumbnail_path %>" src="<%= item.thumbnail_path %>">
+			</a>
+		</li>
+	<% else %>
+		<li class="thumbnail">
+			<a title="<%= item.thumbnail_path %>" href="<%= item_path(item.id) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
+				<img alt="<%= item.thumbnail_path %>" src="<%= item.thumbnail_path %>">
+			</a>
+		</li>
+	<% end %>
+<% end %>
+

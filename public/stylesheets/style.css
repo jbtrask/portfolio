@@ -73,29 +73,32 @@ body {
 }
 
 #thumbnails {
-	position: absolute;
-	top: 0px;
-	left: 350px;
-	margin: 0px;
-	padding: 10px 0px 0px 10px;
+	margin: 0px auto;
+	padding: 0px;
+	width: 754px;
+	height: 606px;
 }
 
 #thumbnails ul {
-	padding-bottom: 40px;
+	
 }
+
 .thumbnail {
 	float: left;
-	margin: 2px;
+	margin: 0px 2px 2px 0px;
 	padding: 0px;
-	width: 18%;
+	width: 124px;
+	height: 150px;
 	background: #CCCCCC;
 }
 
 .thumbnail img {
 	visibility: visible;
 	margin: 0px;
-	padding: 0px;
-	width:100%;	
+	padding: 0px;	
+	border: none;
+	width: 100%;
+	height: 100%;	
 }
 
 #spacer {
