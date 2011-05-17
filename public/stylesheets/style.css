@@ -1,7 +1,7 @@
 html, body {
 	height: 100%;
 	width: 100%;
-	min-width: 994px;
+	min-width: 982px;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
 }
 
 #content {
-	width: 954px;
+	width: 942px;
 	height: 606px;
 	min-height: 606px;
 	margin: 20px auto;
@@ -37,7 +37,6 @@ body {
 }
 
 #masthead h2 {
-	margin: 1em 0px;
 	font-size: 24px;
 	color: #888888;
 }
@@ -77,7 +76,7 @@ body {
 	float: left;
 	margin: 0px auto;
 	padding: 0px;
-	width: 754px;
+	width: 742px;
 	height: 606px;
 }
 
@@ -89,7 +88,7 @@ body {
 	float: left;
 	margin: 0px 2px 2px 0px;
 	padding: 0px;
-	width: 124px;
+	width: 122px;
 	height: 150px;
 	background: #CCCCCC;
 }

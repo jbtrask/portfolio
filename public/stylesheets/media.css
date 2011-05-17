@@ -2,23 +2,23 @@
 @media only screen and (orientation: portrait) {
 
 	html, body {
-		min-width: 794px;
+		min-width: 752px;
 	}
 	
 	#content {
-		width: 754px;
+		width: 742px;
 		height: 806px;
 		min-height: 806px;
 	}
 
 	#masthead {
-		width: 754px;
+		width: 742px;
 		height: 200px;
 	}
 	
 	#nav {
 		top: 0px;
-		left: 252px;
+		left: 248px;
 	}
 	
 	#title {
@@ -29,11 +29,11 @@
 @media only screen and (orientation: landscape) {
 
 	html, body {
-		min-width: 994px;
+		min-width: 982px;
 	}
 	
 	#content {
-		width: 954px;
+		width: 942px;
 		height: 606px;
 		min-height: 606px;
 	}
