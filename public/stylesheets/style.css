@@ -1,6 +1,7 @@
 html, body {
 	height: 100%;
 	width: 100%;
+	min-width: 994px;
 }
 
 body {
@@ -10,41 +11,21 @@ body {
 	color: #000000;
 }
 
-#sidebar {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 256px;
-	height: 100%;
-	min-height: 100%;
-	background-color: #FF8888;
-}
-
 #content {
-	position: absolute;
-	top: 0px;
-	left: 256px;
-	width: 768px;
-	height: 100%;
-	min-height: 100%;
-	background-color: #8888FF;
-}
-
-.thumb {
-	float: left;
-	width: 128px;
-	height: 24.739583333333333333333333333333%;
-	margin-bottom: 0.26041666666666666666666666666667%;
-	margin-right: 0px;
-	background-color: #88FF88;
+	width: 954px;
+	height: 606px;
+	min-height: 606px;
+	margin: 20px auto;
+	padding: 0px;
 }
 
 #masthead {
-	display: fixed;
-	width: 350px;
-	height: 134px;
-	margin: 0px;
-	padding: 32px;
+	position: relative;
+	float: left;
+	width: 200px;
+	height: 606px;
+	margin: 0px auto;
+	padding: 0px;
 }
 
 #masthead h1, #masthead h2, #masthead h3 {
@@ -58,10 +39,30 @@ body {
 #masthead h2 {
 	margin: 1em 0px;
 	font-size: 24px;
+	color: #888888;
+}
+
+#life, #work {
+	width: 100px;
+	float: left;
+	margin: 0px auto;
+}
+
+#nav {
+	position: absolute;
+	top: 152px;
+	left: 0px;
+}
+
+#title {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;	
 }
 
 #masthead h3 {
 	font-size: 18px;
+	color: #888888;
 }
 
 #filters {
@@ -73,6 +74,7 @@ body {
 }
 
 #thumbnails {
+	float: left;
 	margin: 0px auto;
 	padding: 0px;
 	width: 754px;
@@ -101,18 +103,11 @@ body {
 	height: 100%;	
 }
 
-#spacer {
-	float: left;
-	clear: both;
-	width: 100%
-	height: 40px;
-	
-}
-
 #copyright {
-	float: left;
+	float: right;
 	clear: both;
 	color: #888888;
 	font-size: 10px;
-	margin: 10px;
+	margin: 5px;
+	padding: 0px;
 }
