@@ -88,6 +88,12 @@ body {
 	min-width: 100%;
 }
 
+.navHover {
+	color:  #000000;
+	border: 1px solid #000000;
+	cursor: hand;	
+}
+
 #title {
 	position: absolute;
 	bottom: 0px;

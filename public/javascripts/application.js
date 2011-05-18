@@ -12,7 +12,21 @@ function setSize() {
 
 var $$ = jQuery.noConflict();
      
-$$(document).ready(setSize);
+$$(document).ready(function() {
+	
+	$$("#work").click(function(){
+		$$("#filter").fadeToggle();	
+	});
+	
+	$$("#work").mouseout(function(){
+		$$("#work").removeClass("navHover");
+	});
+	$$("#work").mouseenter(function(){
+		$$("#work").addClass("navHover");	
+	});
+	
+	setSize();
+});
  
 $$(window).resize(setSize);
 
