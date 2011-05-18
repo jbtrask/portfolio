@@ -11,15 +11,46 @@ body {
 	color: #000000;
 }
 
+#masthead {
+	position: absolute;
+	min-width: 200px;
+	min-height: 200px;
+}
+
+#div_b {
+	position: absolute;
+	min-width: 200px;
+	min-height: 200px;
+}
+
+#div_c {
+	width: 100%;
+	height: 100%;
+	min-width: 100%;
+	min-height: 100%;
+	position: relative;
+}
+
+#div_b li {
+	background-color: #888888;
+	float: left;
+	width: 100px;
+	height: 162px;
+	min-height: 162px;
+	margin: 0px 2px 2px 0px;
+}
+
 #content {
+	display: none;
+	position: relative;
 	width: 942px;
 	height: 606px;
 	min-height: 606px;
-	margin: 20px auto;
+	margin: 0px auto;
 	padding: 0px;
 }
 
-#masthead {
+#_masthead {
 	position: relative;
 	float: left;
 	width: 200px;
@@ -33,23 +64,25 @@ body {
 }
 
 #masthead h1 {
-	font-size: 32px;
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 2em;
 }
 
 #masthead h2 {
-	font-size: 24px;
+	font-size: 20px;
 	color: #888888;
 }
 
 #life, #work {
 	width: 100px;
 	float: left;
-	margin: 0px auto;
+	text-align: left;
 }
 
 #nav {
 	position: absolute;
-	top: 152px;
+	top: 297px;
 	left: 0px;
 }
 
@@ -57,6 +90,12 @@ body {
 	position: absolute;
 	bottom: 0px;
 	left: 0px;	
+}
+
+#dimensions {
+	position: absolute;
+	top: 276px;
+	left: 0px;
 }
 
 #masthead h3 {
@@ -103,10 +142,10 @@ body {
 }
 
 #copyright {
-	float: right;
-	clear: both;
+	display: none;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
 	color: #888888;
 	font-size: 10px;
-	margin: 5px;
-	padding: 0px;
 }

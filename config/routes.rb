@@ -1,4 +1,7 @@
 Portfolio::Application.routes.draw do
+  
+  root :controller => "items", :action => "index"
+  
   resources :items
 
   # The priority is based upon order of creation:

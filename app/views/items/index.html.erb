@@ -1,17 +1,19 @@
-<div id="content">
+<div id="div_c">
 	<%= render "masthead" %>
-	<div id="thumbnails">
+	<div id="div_b">
 		<ul>
 			<% thumbs = @items.shuffle.slice(0,  24) %>
 			<% (1..4).each do |r| %> 
 				<% (1..6).each do |c| %>
-					<%= render :partial => "thumbnail", :locals => { :item => thumbs[(r-1) * 6 + (c-1)], :right => (c == 6), :bottom => (r == 4) } %>
+					<%= render :partial => "thumbnail", :locals => { :item => thumbs[(r - 1) * 6 + (c - 1)], :row => r, :col => c } %>
 				<% end %>
 			<% end %>
-		</ul>	
+		</ul>
 	</div>
 	<%= render "copyright" %>
 </div>
+
+
 <!--
 <h1>Listing items</h1>
 

@@ -1,4 +1,4 @@
-  
+ /*
 @media only screen and (orientation: portrait) {
 
 	html, body {
@@ -11,7 +11,7 @@
 		min-height: 806px;
 	}
 
-	#masthead {
+	#_masthead {
 		width: 742px;
 		height: 200px;
 	}
@@ -23,6 +23,11 @@
 	
 	#title {
 		margin-bottom: 1em;
+	}
+	
+	#dimensions {
+		top: 50px;
+		left: 248px;
 	}
 }
 
@@ -38,7 +43,7 @@
 		min-height: 606px;
 	}
 	
-	#masthead {
+	#_masthead {
 		width: 200px;
 		height: 606px;
 	}
@@ -51,8 +56,13 @@
 	#title {
 		margin-bottom: 0px;
 	}
+	
+	#dimensions {
+		top: 276px;
+		left: 0px;
+	}
 }
-
+*/
 /*
 
 @media only screen and (max-width: 320px) {
