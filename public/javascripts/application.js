@@ -65,7 +65,7 @@ function setSize() {
 		$$("#div_b").css("width", square + "px");	
 		$$("#div_b").css("height", square + "px");
 		
-		$$("#nav").css("top", square / 4 - $$("#nav").height() / 2 + "px");
+		$$("#nav").css("top", square / 4 + "px");
 		$$("#copyright").css("bottom", ($$(window).height() - square) / 2 - $$("#copyright").height() + "px");	
 		$$("#copyright").css("left", ($$(window).width() - sidebar - square - margin) / 2 + sidebar + margin + square - $$("#copyright").width() + "px");	
 	}
