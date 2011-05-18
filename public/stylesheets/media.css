@@ -1,6 +1,12 @@
- /*
+
 @media only screen and (orientation: portrait) {
 
+	#filter {
+		border-left: 1px dotted #888888;
+		padding-left: 1em;
+	}
+	
+	/*
 	html, body {
 		min-width: 752px;
 	}
@@ -29,10 +35,17 @@
 		top: 50px;
 		left: 248px;
 	}
+	*/
 }
 
 @media only screen and (orientation: landscape) {
 
+	#filter {
+		border-top: 1px dotted #888888;
+		padding-top: 1em;
+	}
+
+/*
 	html, body {
 		min-width: 982px;
 	}
@@ -61,8 +74,9 @@
 		top: 276px;
 		left: 0px;
 	}
+	*/
 }
-*/
+
 /*
 
 @media only screen and (max-width: 320px) {

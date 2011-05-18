@@ -15,7 +15,8 @@ var $$ = jQuery.noConflict();
 $$(document).ready(function() {
 	
 	$$("#work").click(function(){
-		$$("#filter").fadeToggle();	
+		$$("#filter").fadeToggle();
+		$$("#work").toggleClass("selected");	
 	});
 	
 	$$("#work").mouseout(function(){
@@ -36,7 +37,7 @@ function setSize() {
 	var cols = 6;
 	var padding = 2;
 	var margin = 10;
-	var sidebar = 250;
+	var sidebar = 300;
 	var h_square, v_square, square;
 	
 	// Portrait
@@ -57,7 +58,9 @@ function setSize() {
 		$$("#div_b").css("width", square + "px");	
 		$$("#div_b").css("height", square + "px");
 		
-		$$("#nav").css("top", sidebar / 2 - $$("#nav").height() / 2 + "px");
+		$$("#nav").css("top", sidebar / 2 + "px");
+		$$("#filter").css("top", $$("#work").position().top + $$("#work").height() / 2 - $$("#filter").height() / 2 + "px");
+		$$("#filter").css("left", $$("#work").position().left + $$("#work").width() + 2 * $$("#work").height() + "px");
 		$$("#copyright").css("bottom", ($$(window).height() - sidebar - square - margin) / 2  - $$("#copyright").height() + "px");
 		$$("#copyright").css("left", ($$(window).width() - square) / 2 + square - $$("#copyright").width() + "px");	
 	}
@@ -80,6 +83,8 @@ function setSize() {
 		$$("#div_b").css("height", square + "px");
 		
 		$$("#nav").css("top", square / 4 + "px");
+		$$("#filter").css("top", $$("#work").position().top + 2 * $$("#work").height() + "px");
+		$$("#filter").css("left", $$("#work").position().left + $$("#work").width() / 2 - $$("#filter").width() / 2 + "px");
 		$$("#copyright").css("bottom", ($$(window).height() - square) / 2 - $$("#copyright").height() + "px");	
 		$$("#copyright").css("left", ($$(window).width() - sidebar - square - margin) / 2 + sidebar + margin + square - $$("#copyright").width() + "px");	
 	}

@@ -61,6 +61,7 @@ body {
 
 #masthead h1, #masthead h2, #masthead h3 {
 	line-height: 100%;
+	letter-spacing: 0.2em;
 }
 
 #masthead h1 {
@@ -75,9 +76,9 @@ body {
 }
 
 #life, #work {
-	width: 100px;
 	float: left;
 	text-align: left;
+	margin-right: 40px;
 }
 
 #nav {
@@ -88,10 +89,17 @@ body {
 	min-width: 100%;
 }
 
+#masthead .selected h2 {
+	font-weight: bold;
+	color: #000000;
+}
+
 .navHover {
-	color:  #000000;
-	border: 1px solid #000000;
-	cursor: hand;	
+	cursor: pointer;	
+}
+
+#masthead .navHover h2 {
+	font-weight: bold;
 }
 
 #title {
@@ -159,14 +167,17 @@ body {
 }
 
 #filter {
+	display: none;
+	position: absolute;
+	top: 337px;
+	left: 100px;
 	font-size: 20px;
-	margin: 3.236em auto 0px auto;
 	width: 162px;
 }
 
 #filter select, #filter input {
 	width: 158px;
-	margin: 0.618em 0px;
+	margin-bottom: 1em;
 	padding: 1px;
 	color: #333333;
 	border: 1px solid #DDDDDD;
@@ -174,7 +185,8 @@ body {
 }
 
 #filter input[type = "submit"] {
-	width: 112px;
+	width: 72px;
+	margin-left: 40px;
 	margin-right: 40px;
 	font-weight: bold;
 	border-color: #333333;
