@@ -2,7 +2,7 @@
 @media only screen and (orientation: portrait) {
 
 	#filter {
-		border-left: 1px dotted #888888;
+		border-left: 1px dotted #AAAAAA;
 		padding-left: 1em;
 	}
 	
@@ -41,7 +41,7 @@
 @media only screen and (orientation: landscape) {
 
 	#filter {
-		border-top: 1px dotted #888888;
+		border-top: 1px dotted #AAAAAA;
 		padding-top: 1em;
 	}
 
