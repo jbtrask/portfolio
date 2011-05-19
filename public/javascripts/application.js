@@ -11,11 +11,14 @@ function setSize() {
 */
 
 var $$ = jQuery.noConflict();
+
+var currentCol = 0;
+var currentRow = 1;
      
 $$(document).ready(function() {
 	
 	$$("#work").click(function(){
-		$$("#filter").fadeToggle();
+		$$("#filter").fadeToggle("slow"); 
 		$$("#work").toggleClass("selected");	
 	});
 	
@@ -27,8 +30,24 @@ $$(document).ready(function() {
 	});
 	
 	setSize();
+	//$$("#thumbnail_1_1" + " img").fadeIn();
+	fadeThumb();
+	
 });
  
+function fadeThumb() {
+	currentCol++;
+	if (currentCol > 6)
+	{
+		currentCol = 1;
+		currentRow++;
+	}
+	if (currentRow > 4) 
+		return;
+	
+	$$("#thumbnail_" + currentRow + "_" + currentCol + " img").fadeIn(100, fadeThumb);
+}
+
 $$(window).resize(setSize);
 
 function setSize() {

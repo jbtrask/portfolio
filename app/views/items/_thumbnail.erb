@@ -1,4 +1,4 @@
-<li class="thumbnail row_<%= row %> col_<%= col %>">
+<li id="thumbnail_<%= row %>_<%= col %>" class="thumbnail row_<%= row %> col_<%= col %>">
 	<a title="<%= item.thumbnail_path %>" href="<%= item_path(item.id) %>" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">
 		<img alt="<%= item.thumbnail_path %>" src="<%= item.thumbnail_path %>">
 	</a>
