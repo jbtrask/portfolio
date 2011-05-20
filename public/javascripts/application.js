@@ -1,24 +1,9 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-
-
-/*$(window).resize(setSize());
-
-function setSize() {
-	$('#dimensions').html("<span>" + $(window).width() + ", " + $(window).height() +"</span>");
-}
-
-*/
-
 var $$ = jQuery.noConflict();
 
-var currentCol = 0;
-var currentRow = 1;
-     
 $$(document).ready(function() {
 	
 	$$("#work").click(function(){
-		$$("#filter").fadeToggle("slow"); 
+		$$("#filter").fadeToggle(1000); 
 		$$("#work").toggleClass("selected");	
 	});
 	
@@ -30,22 +15,33 @@ $$(document).ready(function() {
 	});
 	
 	setSize();
-	//$$("#thumbnail_1_1" + " img").fadeIn();
 	fadeThumb();
 	
 });
  
+var currentCol = 0;
+var currentRow = 1;
+var thumbTop = true; 
 function fadeThumb() {
-	currentCol++;
-	if (currentCol > 6)
-	{
-		currentCol = 1;
-		currentRow++;
+
+	if (thumbTop) {
+		currentCol++;
+		if (currentCol > 6)
+		{
+			currentCol = 1;
+			currentRow++;
+		}
+		if (currentRow > 2) 
+			return;
 	}
-	if (currentRow > 4) 
-		return;
-	
-	$$("#thumbnail_" + currentRow + "_" + currentCol + " img").fadeIn(100, fadeThumb);
+		
+	var totalRevealTime = 20.0; // seconds
+	var row = thumbTop ? currentRow : 4 - (currentRow - 1);
+	var col = thumbTop ? currentCol : 6 - (currentCol -1);
+	$$("#thumbnail_" + row + "_" + col + " img").fadeIn(totalRevealTime * 1000 / (6 * 4), function() { 
+		thumbTop = !thumbTop; 
+		fadeThumb(); 
+	});
 }
 
 $$(window).resize(setSize);
