@@ -81,4 +81,25 @@ class ItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def style
+    
+    number_of_regions = 10000
+    max_resolution = 1600
+    
+    @screens = []
+    @elements = []
+    (1..number_of_regions).each do |i|
+      increment = max_resolution.to_f / number_of_regions.to_f
+      @screens << [(increment * i).to_i, (increment * i).to_i]
+      @elements << [((increment * i) / 6.0).floor, ((increment * i) / 4.0).floor]
+    end
+    
+    respond_to do |format|
+      format.html
+      format.css { render 'style.css.erb', :content_type => "text/css" }
+    end  
+    
+  end
+  
 end

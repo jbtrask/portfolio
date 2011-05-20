@@ -1,6 +1,7 @@
 Portfolio::Application.routes.draw do
   
   root :controller => "items", :action => "index"
+  match "items/style.:format" => "items#style"
   
   resources :items
 

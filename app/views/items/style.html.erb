@@ -1,0 +1,7 @@
+<% content_for :head do %>
+  <link rel="stylesheet" type="text/css" href="<%= "/items/style.css" %>" media="<% (1..500).each do |i| %>(max-width: <%=400 + i %>px), <% end %> (max-width: 500px)" >
+<% end %>
+
+
+	<div id="sample"></div>
+
