@@ -2,10 +2,9 @@
 	<%= render "masthead" %>
 	<div id="div_b">
 		<ul>
-			<% thumbs = @items.shuffle.slice(0,  24) %>
-			<% (1..4).each do |r| %> 
+			<% (1..4).each do |r| %>
 				<% (1..6).each do |c| %>
-					<%= render :partial => "thumbnail", :locals => { :item => thumbs[(r - 1) * 6 + (c - 1)], :row => r, :col => c } %>
+					<%= render :partial => "thumbnail", :locals => { :row => r, :col => c } %>
 				<% end %>
 			<% end %>
 		</ul>

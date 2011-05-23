@@ -1,5 +1,11 @@
 Portfolio::Application.routes.draw do
   
+  resources :periods
+
+  resources :media
+
+  resources :classifications
+
   root :controller => "items", :action => "index"
   match "items/style.:format" => "items#style"
   

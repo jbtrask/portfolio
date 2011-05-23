@@ -2,9 +2,13 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-     @items = Item.all
+    if !params["classification_id"].nil?
+      @items = Item.all.select{|i| i.classification.id == params[:classification_id]}
+    else
+      @items = Item.all.shuffle
+    end
     @filters = []
-      
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @items }
@@ -81,12 +85,12 @@ class ItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   def style
-    
+
     number_of_regions = 10000
     max_resolution = 1600
-    
+
     @screens = []
     @elements = []
     (1..number_of_regions).each do |i|
@@ -94,12 +98,12 @@ class ItemsController < ApplicationController
       @screens << [(increment * i).to_i, (increment * i).to_i]
       @elements << [((increment * i) / 6.0).floor, ((increment * i) / 4.0).floor]
     end
-    
+
     respond_to do |format|
       format.html
       format.css { render 'style.css.erb', :content_type => "text/css" }
-    end  
-    
+    end
+
   end
-  
+
 end
