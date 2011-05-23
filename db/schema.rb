@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110521172654) do
+ActiveRecord::Schema.define(:version => 20110523084132) do
 
   create_table "classifications", :force => true do |t|
     t.string   "name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20110521172654) do
     t.datetime "updated_at"
     t.string   "full_path"
     t.string   "thumbnail_path"
+    t.integer  "period_id"
   end
 
   create_table "media", :force => true do |t|
