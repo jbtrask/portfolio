@@ -2,17 +2,15 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    if !params[:classification_id].nil?
-      @items = Item.where("classification_id = ? AND medium_id = ? AND period_id = ?", params[:classification_id], params[:medium_id], params[:period_id])
+    @classification = params[:classification_id].nil? ? nil : Classification.find(params[:classification_id])
+    @medium = params[:medium_id].nil? ? nil : Medium.find(params[:medium_id])
+    @period = params[:period_id].nil? ? nil : Period.find(params[:period_id])
+    @filters = []
+    if !@classification.nil? && !@medium.nil? && !@period.nil?
+      @items = Item.where("classification_id = ? AND medium_id = ? AND period_id = ?", @classification.id, @medium.id, @period.id)
     else
       @items = Item.all.shuffle
     end
-    @filters = []
-
-    @classification = Classification.find(params[:classification_id])
-    @medium = Medium.find(params[:medium_id])
-    @period = Period.find(params[:period_id])
- 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @items }

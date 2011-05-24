@@ -6,7 +6,7 @@
 		<%= render "nav" %>
 	</div> 
 	<div id="title">
-		<% if @classification.nil? || @medium.nil? %>
+		<% if @classification.nil? || @medium.nil? || @period.nil? %>
     		<h3>Featured Work</h3>
 		<% else %>
 			<h3><%= @classification.name %></h3>
