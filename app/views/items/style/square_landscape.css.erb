@@ -1,0 +1,26 @@
+#css_info {
+	background-color: #BB0000;
+  color: #FFFFFF;
+}
+
+#aspect_ratio:after {
+	content: "layout: square landscape";
+}
+
+#sidebar {
+  width: <%= @sidebar_width['compressed'] %>%;
+  min-width: <%= @sidebar_width['compressed'] %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+#main {
+  top: 0;
+  left: <%= @sidebar_width['compressed'] %>%;
+  width: <%= 100 - @sidebar_width['compressed'] %>%;
+  min-width: <%= 100 - @sidebar_width['compressed'] %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+<%= render :partial => "items/style/sizes", :locals => { :item_count => @item_count, :width => (100 - @sidebar_width['compressed']), :height => 100} %>

@@ -1,6 +1,39 @@
+LENGTHS = {
+  'mobile' => [480, [1, 1]],
+  'extra_small' => [600, [2,2]],
+  'small' => [720, [3, 3]],
+  'medium' => [840, [4, 4]],
+  'standard' => [960, [5, 5]],
+  'large' => [1080, [6, 6]],
+  'extra_large' => [1200, [7, 7]],
+  'jumbo' => [1201, [8, 8]]
+}
+
+ASPECT_RATIOS = {
+  'narrow_portrait' => "9/16",
+  'square_portrait' => "3/4",
+  'square_landscape' => "4/3",
+  'wide_landscape' => "16/9"
+}
+
+ITEM_COUNT = [
+  [480, 1],
+  [600, 2],
+  [720, 3],
+  [840, 4],
+  [960, 5],
+  [1080, 6],
+  [1200, 7],
+  [nil, 8]
+]
+
+SIDEBAR_WIDTH = {
+  'compressed' => 10,
+  'normal' => 30,
+}
+
 class ItemsController < ApplicationController
-    
- 
+
   # GET /items
   # GET /items.xml
   def index
@@ -90,59 +123,41 @@ class ItemsController < ApplicationController
     end
   end
 
-  def style
-        @lengths = {
-      'mobile' => [480, [1, 1]],
-      'extra_small' => [600, [2,3]],
-      'small' => [720, [4, 6]],
-      'medium' => [840, [6, 9]],
-      'standard' => [960, [8, 12]],
-      'large' => [1080, [10, 15]],
-      'extra_large' => [1200, [12, 18]],
-      'jumbo' => [1201, [14, 21]]
-    } 
-    
-    @aspect_ratios = {
-      'narrow_portrait' => "9/16",
-      'square_portrait' => "3/4",
-      'square_landscape' => "4/3",
-      'wide_landscape' => "16/9"
-    }  
-    respond_to do |format|
-      format.html
-      format.css { render 'style.css.erb', :content_type => "text/css" }
-    end
-  end
-  
-  def sizes
-    
-    @lengths = {
-      'mobile' => [480, [1, 1]],
-      'extra_small' => [600, [2,3]],
-      'small' => [720, [4, 6]],
-      'medium' => [840, [6, 9]],
-      'standard' => [960, [8, 12]],
-      'large' => [1080, [10, 15]],
-      'extra_large' => [1200, [12, 18]],
-      'jumbo' => [1201, [14, 21]]
-    } 
-    
-    @aspect_ratios = {
-      'narrow_portrait' => "9/16",
-      'square_portrait' => "3/4",
-      'square_landscape' => "4/3",
-      'wide_landscape' => "16/9"
-    }  
+#  def style
+#    @lengths = LENGTHS
+#    @aspect_ratios = ASPECT_RATIOS
+#    respond_to do |format|
+#      format.html
+#      format.css { render 'style.css.erb', :content_type => "text/css" }
+#    end
+#  end
 
-    @values = @lengths.to_a.sort{|a, b| b[1][0] <=> a[1][0]}
+  def sizes
+    @values = LENGTHS.to_a.sort{|a, b| b[1][0] <=> a[1][0]}
     puts @values
     respond_to do |format|
       format.css { render "sizes.css.erb", :content_type => "text/css" }
     end
   end
-  
+
+  def demo
+    @lengths = LENGTHS
+    @aspect_ratios = ASPECT_RATIOS
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def style
+    @item_count = ITEM_COUNT
+    @sidebar_width = SIDEBAR_WIDTH
+    respond_to do |format|
+      format.css { render "items/style/#{params[:stylesheet]}.css.erb", :content_type => "text/css" }
+    end
+  end
+
   def test
-    
+
   end
 
 end

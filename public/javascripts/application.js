@@ -1,5 +1,5 @@
 var $$ = jQuery.noConflict();
-
+/*
 $$(document).ready(function() {
 
 	$$("#work").click(function(){
@@ -123,3 +123,4 @@ function setSize() {
 	$$(".col_" + cols).css("margin-right", "0px");
 }
 
+*/

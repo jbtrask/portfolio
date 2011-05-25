@@ -1,23 +1,40 @@
 <% content_for :head do %>
 
+  <link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/default") %>" >
+
+  <link rel="stylesheet" type="text/css" href="/sizes.css" >
+
 	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/mobile_portrait") %>" media="only screen and (max-height: <%= @lengths["mobile"][0] %>px) and (max-aspect-ratio: 1/1)" >
 	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/mobile_landscape") %>" media="only screen and (max-width: <%= @lengths["mobile"][0] %>px) and (min-aspect-ratio: 1/1)" >
 
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/square_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: 1/1) and (max-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>)" >
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("square_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: 1/1) and (max-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>)" >
 	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/square_portrait") %>" media="only screen and (min-height: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["square_portrait"] %>) and (max-aspect-ratio: 1/1)" >
 
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/normal_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>) and (max-aspect-ratio: <%= @aspect_ratios["wide_landscape"] %>)" >
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("normal_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>) and (max-aspect-ratio: <%= @aspect_ratios["wide_landscape"] %>)" >
 	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/normal_portrait") %>" media="only screen and (min-height: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["narrow_portrait"] %>) and (max-aspect-ratio: <%= @aspect_ratios["square_portrait"] %>)" >
 
 	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/wide_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["wide_landscape"] %>)" >
 	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/narrow_portrait") %>" media="only screen and (min-height: <%= @lengths["mobile"][0].to_i + 1 %>px) and (max-aspect-ratio: <%= @aspect_ratios["narrow_portrait"] %>)" >
 
-	<link rel="stylesheet" type="text/css" href="/sizes.css" >
-
 <% end %>
 
+<div id="sidebar">
 
-<div id="sample">
+</div>
+
+<div id="main">
+  <ul>
+    <% (0..299).each do |i| %>
+      <li id="grid_cell_<%= i %>" class="grid_cell">
+        <div id="grid_item_<%= i %>" class="grid_item <%= i % 2 == 0 ? "even" : "odd" %>">
+          <span class="item_number"><%= i + 1 %></span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div id="css_info">
 	<p id="aspect_ratio"></p>
 	<p id="v-size"></p>
 	<p id="h-size"></p>

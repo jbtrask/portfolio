@@ -1,7 +1,7 @@
 Portfolio::Application.routes.draw do
-  
+
   match "test" => "items#test"
-  
+
   resources :periods
 
   resources :media
@@ -9,10 +9,12 @@ Portfolio::Application.routes.draw do
   resources :classifications
 
   root :controller => "items", :action => "index"
-  
-  match "/style.:format" => "items#style"
+
+  match "/demo.:format" => "items#demo"
   match "/sizes.:format" => "items#sizes"
-  
+
+  match "/stylesheets/:stylesheet.:format" => "items#style"
+
   resources :items
 
   # The priority is based upon order of creation:

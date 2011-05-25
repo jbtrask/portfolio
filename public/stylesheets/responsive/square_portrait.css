@@ -1,7 +1,24 @@
-#sample {
+#css_info {
 	background-color: #00BB00;
+  color: #FFFFFF;
 }
 
 #aspect_ratio:after {
-	content: "square portrait";
+	content: "layout: square portrait";
+}
+
+#sidebar {
+  width: 100%;
+  min-width: 100%;
+  height: 10%;
+  min-height: 10%;
+}
+
+#main {
+  top: 10%;
+  left: 0;
+  width: 100%;
+  min-width: 100%;
+  height: 90%;
+  min-height: 90%;
 }

@@ -1,0 +1,77 @@
+html, body {
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  min-height: 100%;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background: #FFFFFF;
+	color: #000000;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+#css_info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+
+#sidebar {
+  background-color: #FFCCCC;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  min-width: 30%;
+  height: 100%;
+  min-height: 100%;
+}
+
+#main {
+  background-color: #CCCCFF;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 30%;
+  width: 70%;
+  min-width: 70%;
+  height: 100%;
+  min-height: 100%;
+}
+
+#main ul {
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.grid_cell {
+  position: relative;
+  float: left;
+  width: 100px;
+  min-width: 100px;
+  height: 162px;
+  min-height: 162px;
+}
+
+.grid_item {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 96%;
+  min-width: 96%;
+  height: 96%;
+  min-height: 96%;
+}
+
+.grid_item.odd {
+  background-color: #CCCCCC;
+}
+
+.grid_item.even {
+  background-color: #DDDDDD;
+}

@@ -1,0 +1,26 @@
+#css_info {
+	background-color: #880000;
+  color: #FFFFFF;
+}
+
+#aspect_ratio:after {
+	content: "layout: normal landscape";
+}
+
+#sidebar {
+  width: <%= @sidebar_width['normal'] %>%;
+  min-width: <%= @sidebar_width['normal'] %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+#main {
+  top: 0;
+  left: <%= @sidebar_width['normal'] %>%;
+  width: <%= (100 - @sidebar_width['normal']) %>%;
+  min-width: <%= (100 - @sidebar_width['normal']) %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+<%= render :partial => "items/style/sizes", :locals => { :item_count => @item_count, :width => (100 - @sidebar_width['normal']), :height => 100} %>
