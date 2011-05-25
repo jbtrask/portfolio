@@ -1,0 +1,7 @@
+#sample {
+	background-color: #880000;
+}
+
+#aspect_ratio:after {
+	content: "normal landscape";
+}

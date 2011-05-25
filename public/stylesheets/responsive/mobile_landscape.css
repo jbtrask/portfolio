@@ -1,0 +1,7 @@
+#sample {
+	background-color: #FF0000;
+}
+
+#aspect_ratio:after {
+	content: "mobile landscape";
+}

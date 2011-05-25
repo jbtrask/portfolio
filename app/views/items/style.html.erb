@@ -1,7 +1,25 @@
 <% content_for :head do %>
-  <link rel="stylesheet" type="text/css" href="<%= "/items/style.css" %>" media="<% (1..500).each do |i| %>(max-width: <%=400 + i %>px), <% end %> (max-width: 500px)" >
+
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/mobile_portrait") %>" media="only screen and (max-height: <%= @lengths["mobile"][0] %>px) and (max-aspect-ratio: 1/1)" >
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/mobile_landscape") %>" media="only screen and (max-width: <%= @lengths["mobile"][0] %>px) and (min-aspect-ratio: 1/1)" >
+
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/square_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: 1/1) and (max-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>)" >
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/square_portrait") %>" media="only screen and (min-height: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["square_portrait"] %>) and (max-aspect-ratio: 1/1)" >
+
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/normal_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>) and (max-aspect-ratio: <%= @aspect_ratios["wide_landscape"] %>)" >
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/normal_portrait") %>" media="only screen and (min-height: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["narrow_portrait"] %>) and (max-aspect-ratio: <%= @aspect_ratios["square_portrait"] %>)" >
+
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/wide_landscape") %>" media="only screen and (min-width: <%= @lengths["mobile"][0].to_i + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["wide_landscape"] %>)" >
+	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/narrow_portrait") %>" media="only screen and (min-height: <%= @lengths["mobile"][0].to_i + 1 %>px) and (max-aspect-ratio: <%= @aspect_ratios["narrow_portrait"] %>)" >
+
+	<link rel="stylesheet" type="text/css" href="/sizes.css" >
+
 <% end %>
 
 
-	<div id="sample"></div>
+<div id="sample">
+	<p id="aspect_ratio"></p>
+	<p id="v-size"></p>
+	<p id="h-size"></p>
+</div>
 

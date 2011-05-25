@@ -1,0 +1,8 @@
+#sample {
+	background-color: #330000;
+	color: #FFFFFF;
+}
+
+#aspect_ratio:after {
+	content: "wide landscape";
+}

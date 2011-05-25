@@ -1,0 +1,7 @@
+#sample {
+	background-color: #BB0000;
+}
+
+#aspect_ratio:after {
+	content: "square landscape";
+}

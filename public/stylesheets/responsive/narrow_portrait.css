@@ -1,0 +1,8 @@
+#sample {
+	background-color: #003300;
+	color: #FFFFFF;
+}
+
+#aspect_ratio:after {
+	content: "narrow portrait";
+}

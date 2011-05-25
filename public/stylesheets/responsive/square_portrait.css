@@ -1,0 +1,7 @@
+#sample {
+	background-color: #00BB00;
+}
+
+#aspect_ratio:after {
+	content: "square portrait";
+}

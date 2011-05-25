@@ -1,5 +1,7 @@
 Portfolio::Application.routes.draw do
   
+  match "test" => "items#test"
+  
   resources :periods
 
   resources :media
@@ -7,7 +9,9 @@ Portfolio::Application.routes.draw do
   resources :classifications
 
   root :controller => "items", :action => "index"
-  match "items/style.:format" => "items#style"
+  
+  match "/style.:format" => "items#style"
+  match "/sizes.:format" => "items#sizes"
   
   resources :items
 

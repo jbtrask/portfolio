@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+    
+ 
   # GET /items
   # GET /items.xml
   def index
@@ -89,23 +91,58 @@ class ItemsController < ApplicationController
   end
 
   def style
-
-    number_of_regions = 10000
-    max_resolution = 1600
-
-    @screens = []
-    @elements = []
-    (1..number_of_regions).each do |i|
-      increment = max_resolution.to_f / number_of_regions.to_f
-      @screens << [(increment * i).to_i, (increment * i).to_i]
-      @elements << [((increment * i) / 6.0).floor, ((increment * i) / 4.0).floor]
-    end
-
+        @lengths = {
+      'mobile' => [480, [1, 1]],
+      'extra_small' => [600, [2,3]],
+      'small' => [720, [4, 6]],
+      'medium' => [840, [6, 9]],
+      'standard' => [960, [8, 12]],
+      'large' => [1080, [10, 15]],
+      'extra_large' => [1200, [12, 18]],
+      'jumbo' => [1201, [14, 21]]
+    } 
+    
+    @aspect_ratios = {
+      'narrow_portrait' => "9/16",
+      'square_portrait' => "3/4",
+      'square_landscape' => "4/3",
+      'wide_landscape' => "16/9"
+    }  
     respond_to do |format|
       format.html
       format.css { render 'style.css.erb', :content_type => "text/css" }
     end
+  end
+  
+  def sizes
+    
+    @lengths = {
+      'mobile' => [480, [1, 1]],
+      'extra_small' => [600, [2,3]],
+      'small' => [720, [4, 6]],
+      'medium' => [840, [6, 9]],
+      'standard' => [960, [8, 12]],
+      'large' => [1080, [10, 15]],
+      'extra_large' => [1200, [12, 18]],
+      'jumbo' => [1201, [14, 21]]
+    } 
+    
+    @aspect_ratios = {
+      'narrow_portrait' => "9/16",
+      'square_portrait' => "3/4",
+      'square_landscape' => "4/3",
+      'wide_landscape' => "16/9"
+    }  
 
+    @values = @lengths.to_a.sort{|a, b| b[1][0] <=> a[1][0]}
+    puts @values
+    respond_to do |format|
+      format.css { render "sizes.css.erb", :content_type => "text/css" }
+    end
+  end
+  
+  def test
+    
   end
 
 end
