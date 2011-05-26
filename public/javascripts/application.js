@@ -1,4 +1,26 @@
 var $$ = jQuery.noConflict();
+
+$$(document).ready(function() {
+	setSize();
+	$$("#css_info").click(function(){
+		setSize();
+	});
+});
+
+function setSize() {
+	$$("#width").text($$(window).width());
+	$$("#height").text($$(window).height());
+	$$("#aspect_ratio").text((parseFloat($$(window).width()) / parseFloat($$(window).height())).toFixed(3));
+}
+
+/*
+$$(window).resize(setSize);
+
+$$(document).ready(function() {
+	setSize();
+});
+
+*/
 /*
 $$(document).ready(function() {
 

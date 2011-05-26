@@ -1,0 +1,26 @@
+#css_info {
+	background-color: #008000;
+	color: #FFFFFF;
+}
+
+#layout:after {
+	content: "layout:  narrow portrait";
+}
+
+#sidebar {
+  width: 100%;
+  min-width: 100%;
+  height: <%= @sidebar_width['long'] %>%;
+  min-height: <%= @sidebar_width['long'] %>%;
+}
+
+#main {
+  top: <%= @sidebar_width['long'] %>%;
+  left: 0;
+  width: 100%;
+  min-width: 100%;
+  height: <%= 100 - @sidebar_width['long'] %>%;
+  min-height: <%= 100 - @sidebar_width['long'] %>%;
+}
+
+<%= render :partial => "items/style/sizes", :locals => { :h_count => @h_count, :v_count => @v_count, :width => 100, :height => (100 - @sidebar_width['long'])} %>

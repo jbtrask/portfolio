@@ -9,26 +9,48 @@ LENGTHS = {
   'jumbo' => [1201, [8, 8]]
 }
 
+MOBILE_THRESHOLD = 480
+
 ASPECT_RATIOS = {
-  'narrow_portrait' => "9/16",
+  'narrow_portrait' => "1/2",
   'square_portrait' => "3/4",
   'square_landscape' => "4/3",
-  'wide_landscape' => "16/9"
+  'wide_landscape' => "2/1"
 }
 
-ITEM_COUNT = [
-  [480, 1],
-  [600, 2],
-  [720, 3],
-  [840, 4],
-  [960, 5],
+VERTICAL_COUNT = [
+  [180, 1],
+  [360, 2],
+  [540, 3],
+  [720, 4],
+  [900, 5],
   [1080, 6],
-  [1200, 7],
-  [nil, 8]
+  [1260, 7],
+  [1440, 8],
+  [1620, 9],
+  [1800, 10],
+  [1980, 11],
+  [nil, 12]
+]
+
+HORIZONTAL_COUNT = [
+  [120, 1],
+  [240, 2],
+  [360, 3],
+  [480, 4],
+  [600, 5],
+  [720, 6],
+  [840, 7],
+  [960, 8],
+  [1080, 9],
+  [1200, 10],
+  [1320, 11],
+  [nil, 12]
 ]
 
 SIDEBAR_WIDTH = {
   'compressed' => 10,
+  'long' => 25,
   'normal' => 30,
 }
 
@@ -141,15 +163,13 @@ class ItemsController < ApplicationController
   end
 
   def demo
-    @lengths = LENGTHS
+    @mobile_threshold = MOBILE_THRESHOLD
     @aspect_ratios = ASPECT_RATIOS
-    respond_to do |format|
-      format.html
-    end
   end
 
   def style
-    @item_count = ITEM_COUNT
+    @h_count = HORIZONTAL_COUNT
+    @v_count = VERTICAL_COUNT
     @sidebar_width = SIDEBAR_WIDTH
     respond_to do |format|
       format.css { render "items/style/#{params[:stylesheet]}.css.erb", :content_type => "text/css" }

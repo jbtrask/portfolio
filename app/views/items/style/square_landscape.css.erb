@@ -1,10 +1,10 @@
 #css_info {
-	background-color: #BB0000;
+	background-color: #000080;
   color: #FFFFFF;
 }
 
-#aspect_ratio:after {
-	content: "layout: square landscape";
+#layout:after {
+	content: "layout:  square landscape";
 }
 
 #sidebar {
@@ -23,4 +23,4 @@
   min-height: 100%;
 }
 
-<%= render :partial => "items/style/sizes", :locals => { :item_count => @item_count, :width => (100 - @sidebar_width['compressed']), :height => 100} %>
+<%= render :partial => "items/style/sizes", :locals => { :h_count => @h_count, :v_count => @v_count, :width => (100 - @sidebar_width['compressed']), :height => 100} %>

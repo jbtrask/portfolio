@@ -1,0 +1,26 @@
+#css_info {
+	background-color: #000080;
+	color: #FFFFFF;
+}
+
+#layout:after {
+	content: "layout:  wide landscape";
+}
+
+#sidebar {
+  width: <%= @sidebar_width['long'] %>%;
+  min-width: <%= @sidebar_width['long'] %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+#main {
+  top: 0;
+  left: <%= @sidebar_width['long'] %>%;
+  width: <%= 100 - @sidebar_width['long'] %>%;
+  min-width: <%= 100 - @sidebar_width['long'] %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+<%= render :partial => "items/style/sizes", :locals => { :h_count => @h_count, :v_count => @v_count, :width => (100 - @sidebar_width['long']), :height => 100} %>
