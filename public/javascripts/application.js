@@ -13,14 +13,7 @@ function setSize() {
 	$$("#aspect_ratio").text((parseFloat($$(window).width()) / parseFloat($$(window).height())).toFixed(3));
 }
 
-/*
-$$(window).resize(setSize);
 
-$$(document).ready(function() {
-	setSize();
-});
-
-*/
 /*
 $$(document).ready(function() {
 
