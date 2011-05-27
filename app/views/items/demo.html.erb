@@ -22,15 +22,17 @@
 </div>
 
 <div id="main">
-  <ul>
-    <% (0..299).each do |i| %>
-      <li id="grid_cell_<%= i %>" class="grid_cell">
-        <div id="grid_item_<%= i %>" class="grid_item <%= i % 2 == 0 ? "even" : "odd" %>">
-          <span class="item_number"><%= i + 1 %></span>
-        </div>
-      </li>
-    <% end %>
-  </ul>
+	<div id="cell">
+	  <ul>
+	    <% (0..ITEM_COUNT - 1).each do |i| %>
+	      <li id="grid_cell_<%= i %>" class="grid_cell">
+	        <div id="grid_item_<%= i %>" class="grid_item <%= i % 2 == 0 ? "even" : "odd" %>">
+	          <span class="item_number"><%= i + 1 %></span>
+	        </div>
+	      </li>
+	    <% end %>
+	  </ul>
+	</div>
 </div>
 
 <div id="css_info">

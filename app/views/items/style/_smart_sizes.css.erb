@@ -8,12 +8,72 @@
 	until vertical.last + SIZE_VERTICAL_INCREMENT > SIZE_VERTICAL_MAX do
 		vertical << vertical.last + SIZE_VERTICAL_INCREMENT
 	end
-
+	corrected_v = vertical.map{|size| (size * (1.0 + v_correct.to_f / 100.0)).floor }
+	vertical << nil
+	
 	horizontal = [ SIZE_HORIZONTAL_MIN ]
 	until horizontal.last + SIZE_HORIZONTAL_INCREMENT > SIZE_HORIZONTAL_MAX do
 		horizontal << horizontal.last + SIZE_HORIZONTAL_INCREMENT
 	end
+	corrected_h = horizontal.map{|size| (size * (1.0 + h_correct.to_f / 100.0)).floor }
+	horizontal << nil
+	
+	target_rows = rows.nil? ? nil : rows
+	target_columns = columns.nil? ? nil : columns
+	if target_rows.nil? && target_columns.nil? 
+		# best fit both directions
+	elsif target_rows.nil? || target_columns.nil?
+		# one constrained, one maxed
+	else
+		vertical.each_with_index do |v, v_idx|
+			horizontal.each_with_index do |h, h_idx|
+				
+				grid_size = sizes.first
+				sizes.each do |size|
+					grid_size = size if (h_idx == 0 || size[0] * target_columns + 3 * SIZE_GRID_SPACING * (target_columns - 1) < horizontal[h_idx - 1]) && (v_idx == 0 || size[1] * target_rows + 3 * SIZE_GRID_SPACING * (target_rows - 1) < vertical[v_idx - 1])
+				end
+ %>
+@media only screen
+	<%= v_idx == 0 ? "" : " and (min-height: " + (corrected_v[v_idx - 1] + 1).to_s + "px)"  %>
+	<%= v.nil? ? "" : " and (max-height: " + corrected_v[v_idx].to_s + "px)"  %>
+	<%= h_idx == 0 ? "" : " and (min-width: " + (corrected_h[h_idx - 1] + 1).to_s + "px)"  %>
+	<%= h.nil? ? "" : " and (max-width: " + corrected_h[h_idx].to_s + "px)"  %> {
+
+	div#main ul {
+		width: <%= grid_size[0] * target_columns + SIZE_GRID_SPACING * (target_columns - 1) %>px;
+		min-width: <%= grid_size[0] * target_columns + SIZE_GRID_SPACING * (target_columns - 1) %>px;
+		height: <%= grid_size[1] * target_rows + SIZE_GRID_SPACING * (target_rows - 1) %>px;
+		min-height: <%= grid_size[1] * target_rows + SIZE_GRID_SPACING * (target_rows - 1) %>px;
+	}
+
+	.grid_cell {
+		width: <%= grid_size[0] %>px;
+		min-width: <%= grid_size[0] %>px;
+		height: <%= grid_size[1] %>px;
+		min-height: <%= grid_size[1] %>px;
+		margin: 0 <%= SIZE_GRID_SPACING %>px <%= SIZE_GRID_SPACING %>px 0
+	}
+	#h-size:after {
+		content: "width:  <%= grid_size[0] %>"
+	}
+	#v-size:after {
+		content: "height:  <%= grid_size[1] %>"
+	}
+}		
+<%
+			end
+		end
+
+		right_list = bottom_list = ""
+		(0..ITEM_COUNT  - 1).each do |i|
+			right_list += (right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if (i + 1) % target_columns == 0
+			bottom_list += (bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if ((i + 1).to_f / target_columns.to_f).ceil % target_rows == 0 
+		end
 %>
-<%= sizes.inspect %>
-<%= vertical.inspect %>
-<%= horizontal.inspect %>
+<%= right_list %> {
+	margin-right: 0
+}
+<%= bottom_list %> {
+	margin-bottom: 0
+}
+<% end %>
