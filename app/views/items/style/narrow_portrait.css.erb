@@ -23,4 +23,4 @@
   min-height: <%= 100 - @sidebar_width['long'] %>%;
 }
 
-<%= render :partial => "items/style/sizes", :locals => { :h_count => @h_count, :v_count => @v_count, :width => 100, :height => (100 - @sidebar_width['long'])} %>
+<%= render :partial => "items/style/smart_sizes", :locals => { :rows => nil, :columns => 1, :v_correct => @sidebar_width['long'], :h_correct => 0 } %>
