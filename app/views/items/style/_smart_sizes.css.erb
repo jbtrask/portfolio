@@ -1,0 +1,19 @@
+<% 
+	sizes = [ [SIZE_GRID_MIN, (SIZE_GRID_MIN.to_f * SIZE_GRID_ASPECT_RATIO).round] ]
+	until sizes.last[0] + SIZE_GRID_INCREMENT > SIZE_GRID_MAX do
+		sizes << [sizes.last[0] + SIZE_GRID_INCREMENT, ((sizes.last[0] + SIZE_GRID_INCREMENT).to_f * SIZE_GRID_ASPECT_RATIO).round]
+	end
+
+	vertical = [ SIZE_VERTICAL_MIN ]
+	until vertical.last + SIZE_VERTICAL_INCREMENT > SIZE_VERTICAL_MAX do
+		vertical << vertical.last + SIZE_VERTICAL_INCREMENT
+	end
+
+	horizontal = [ SIZE_HORIZONTAL_MIN ]
+	until horizontal.last + SIZE_HORIZONTAL_INCREMENT > SIZE_HORIZONTAL_MAX do
+		horizontal << horizontal.last + SIZE_HORIZONTAL_INCREMENT
+	end
+%>
+<%= sizes.inspect %>
+<%= vertical.inspect %>
+<%= horizontal.inspect %>

@@ -1,3 +1,19 @@
+SIZE_GRID_ASPECT_RATIO = 1.61803399
+SIZE_GRID_MIN = 60
+SIZE_GRID_MAX = 300
+SIZE_GRID_INCREMENT = 10
+  
+SIZE_HORIZONTAL_MIN = 100
+SIZE_HORIZONTAL_MAX = 1920
+SIZE_HORIZONTAL_INCREMENT = 20
+
+SIZE_VERTICAL_MIN = 100
+SIZE_VERTICAL_MAX = 1600
+SIZE_VERTICAL_INCREMENT = 50
+
+
+
+  
 LENGTHS = {
   'mobile' => [480, [1, 1]],
   'extra_small' => [600, [2,2]],
@@ -51,8 +67,15 @@ HORIZONTAL_COUNT = [
 SIDEBAR_WIDTH = {
   'compressed' => 10,
   'long' => 25,
-  'normal' => 30,
+  'normal' => 30
 }
+
+
+SIZES = [
+  [50, 81],
+  [100, 162],
+  [150, 243]
+]
 
 class ItemsController < ApplicationController
 
