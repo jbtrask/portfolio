@@ -1,30 +1,15 @@
 <% content_for :head do %>
-
   	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/default") %>" >
-
-
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_portrait") %>" media="only screen and (max-height: <%= @mobile_threshold %>px) and (max-aspect-ratio: 1/1)" >
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_landscape") %>" media="only screen and (max-width: <%= @mobile_threshold %>px) and (min-aspect-ratio: 1/1)" >
-
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("square_landscape") %>" media="only screen and (min-width: <%= @mobile_threshold + 1 %>px) and (min-aspect-ratio: 1/1) and (max-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>)" >
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("square_portrait") %>" media="only screen and (min-height: <%= @mobile_threshold + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["square_portrait"] %>) and (max-aspect-ratio: 1/1)" >
-
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("normal_landscape") %>" media="only screen and (min-width: <%= @mobile_threshold + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["square_landscape"] %>) and (max-aspect-ratio: <%= @aspect_ratios["wide_landscape"] %>)" >
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("normal_portrait") %>" media="only screen and (min-height: <%= @mobile_threshold + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["narrow_portrait"] %>) and (max-aspect-ratio: <%= @aspect_ratios["square_portrait"] %>)" >
-
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("wide_landscape") %>" media="only screen and (min-width: <%= @mobile_threshold + 1 %>px) and (min-aspect-ratio: <%= @aspect_ratios["wide_landscape"] %>)" >
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("narrow_portrait") %>" media="only screen and (min-height: <%= @mobile_threshold + 1 %>px) and (max-aspect-ratio: <%= @aspect_ratios["narrow_portrait"] %>)" >
-
+	<%= render "items/style/smart_layout" %>
 <% end %>
 
 <div id="sidebar">
-
 </div>
 
 <div id="main">
 	<div id="cell">
 	  <ul>
-	    <% (0..ITEM_COUNT - 1).each do |i| %>
+	    <% (0..CELL_COUNT - 1).each do |i| %>
 	      <li id="grid_cell_<%= i %>" class="grid_cell">
 	        <div id="grid_item_<%= i %>" class="grid_item <%= i % 2 == 0 ? "even" : "odd" %>">
 	          <span class="item_number"><%= i + 1 %></span>
@@ -39,8 +24,8 @@
 	<p id="layout"></p>
 	<p id="v-size"></p>
 	<p id="h-size"></p>
-	<p>dimensions:  <span id="width"></span> x <span id="height"></span></p>
-	<p>aspect ratio:  <span id="aspect_ratio"></span></p>
+	<p>dimensions:  <span id="width">---</span> x <span id="height">---</span></p>
+	<p>aspect ratio:  <span id="aspect_ratio"></span>---</p>
 </div>
 
 

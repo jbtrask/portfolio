@@ -1,98 +1,97 @@
 <% 
-	sizes = [ [SIZE_GRID_MIN, (SIZE_GRID_MIN.to_f * SIZE_GRID_ASPECT_RATIO).round] ]
-	until sizes.last[0] + SIZE_GRID_INCREMENT > SIZE_GRID_MAX do
-		sizes << [sizes.last[0] + SIZE_GRID_INCREMENT, ((sizes.last[0] + SIZE_GRID_INCREMENT).to_f * SIZE_GRID_ASPECT_RATIO).round]
+	def space(length, percent, min = 0)
+		space = (length.to_f * percent.to_f / 100.0).floor
+		space < min.to_i ? min.to_i : space
+		space	
 	end
 
-	vertical = [ SIZE_VERTICAL_MIN ]
-	until vertical.last + SIZE_VERTICAL_INCREMENT > SIZE_VERTICAL_MAX do
-		vertical << vertical.last + SIZE_VERTICAL_INCREMENT
-	end
-	corrected_v = vertical.map{|size| (size * (1.0 + v_correct.to_f / 100.0)).floor }
-	vertical << nil
-	
-	horizontal = [ SIZE_HORIZONTAL_MIN ]
-	until horizontal.last + SIZE_HORIZONTAL_INCREMENT > SIZE_HORIZONTAL_MAX do
-		horizontal << horizontal.last + SIZE_HORIZONTAL_INCREMENT
-	end
-	corrected_h = horizontal.map{|size| (size * (1.0 + h_correct.to_f / 100.0)).floor }
-	horizontal << nil
-	
-	regions = {}
-	vertical.each_with_index do |v, v_idx|
-		horizontal.each_with_index do |h, h_idx|
-
-			grid_size = sizes.first
-			target_rows = rows.nil? ? nil : rows
-			target_columns = columns.nil? ? nil : columns
-			if target_rows.nil? && target_columns.nil? 
-				# best fit both directions
-			elsif target_rows.nil? || target_columns.nil?
-				if target_rows.nil?
-					sizes.each do |size|
-						grid_size = size if h_idx == 0 || size[0] * target_columns + 3 * SIZE_GRID_SPACING * (target_columns - 1) < horizontal[h_idx - 1]
-					end
-					target_rows = v_idx == 0 ? 1 :((vertical[v_idx - 1].to_f + 3.0 * SIZE_GRID_SPACING.to_f) / (grid_size[1].to_f + 3.0 * SIZE_GRID_SPACING.to_f)).floor
-					target_rows = target_rows == 0 ? 1 : target_rows
-				else
-					sizes.each do |size|
-						grid_size = size if v_idx == 0 || size[1] * target_rows + 3 * SIZE_GRID_SPACING * (target_rows - 1) < vertical[v_idx - 1]
-					end
-					target_columns = h_idx == 0 ? 1 : ((horizontal[h_idx - 1].to_f + 3.0 * SIZE_GRID_SPACING.to_f) / (grid_size[0].to_f + 3.0 * SIZE_GRID_SPACING.to_f)).floor
-					target_columns = target_columns == 0 ? 1 : target_columns
-				end				
-			else
-				sizes.each do |size|
-					grid_size = size if (h_idx == 0 || size[0] * target_columns + 3 * SIZE_GRID_SPACING * (target_columns - 1) < horizontal[h_idx - 1]) && (v_idx == 0 || size[1] * target_rows + 3 * SIZE_GRID_SPACING * (target_rows - 1) < vertical[v_idx - 1])
-				end
-			end
-
-			media_query = "only screen" + (v_idx == 0 ? "" : " and (min-height: " + (corrected_v[v_idx - 1] + 1).to_s + "px)") + (v.nil? ? "" : " and (max-height: " + corrected_v[v_idx].to_s + "px)") + (h_idx == 0 ? "" : " and (min-width: " + (corrected_h[h_idx - 1] + 1).to_s + "px)") + (h.nil? ? "" : " and (max-width: " + corrected_h[h_idx].to_s + "px)") 
-			
-			key = grid_size[0].to_s + "|" + grid_size[1].to_s + "|" + target_rows.to_s + "|" + target_columns.to_s
-			regions[key] ||= { :grid_size => grid_size, :target_rows => target_rows, :target_columns => target_columns, :media => "" }
-			regions[key][:media] += (regions[key][:media] == "" ? "" : ",\n") + media_query
-
-		end
+	def corrected_length(content_length, content_percent)
+		(content_length.to_f / (content_percent.to_f / 100.0)).ceil
 	end
 
-	regions.each do |key, region|
+	def layout_info(size, rows, columns, horizontal_content, vertical_content)
+		info = {}
+		info[:size] = size
+		info[:rows] = rows
+		info[:columns] = columns
+		info[:grid_width_space] = space(size[:width], GRID_PADDING, MIN_GRID_SPACE)
+		info[:grid_height_space] = space(size[:height], GRID_PADDING, MIN_GRID_SPACE)
+		info[:matrix_width] = columns * size[:width] + (columns - 1) * info[:grid_width_space]
+		info[:matrix_height] = rows * size[:height] + (rows - 1) * info[:grid_height_space]
+		info[:matrix_width_space] = space(info[:matrix_width], MATRIX_PADDING, MIN_MATRIX_SPACE) 		
+		info[:matrix_height_space] = space(info[:matrix_height], MATRIX_PADDING, MIN_MATRIX_SPACE)
+		info[:required_width] = info[:matrix_width] + 2 * info[:matrix_width_space]
+		info[:required_height] = info[:matrix_height] + 2 * info[:matrix_height_space]
+		info[:corrected_required_width] = corrected_length(info[:required_width], horizontal_content)
+		info[:corrected_required_height] = corrected_length(info[:required_height], vertical_content)
+		info
+	end
 
-		right_list = bottom_list = ""
-		(0..ITEM_COUNT  - 1).each do |i|
-			right_list += (right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if (i + 1) % region[:target_columns] == 0
-			bottom_list += (bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if ((i + 1).to_f / region[:target_columns].to_f).ceil % region[:target_rows] == 0 
-		end
+	sizes = (GRID_MIN / GRID_INCREMENT..GRID_MAX / GRID_INCREMENT).inject([]) do |memo, value|
+		memo << { :width => value * GRID_INCREMENT, :height => ((value * GRID_INCREMENT).to_f * GRID_ASPECT_RATIO).round }
+	end
+
+	queries = sizes.inject([])  do |list, size|
+		layout = layout_info(size, rows, columns, horizontal_content, vertical_content) 
+		list << 
+		{ 
+			:query => "only screen" + 
+				(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
+				(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
+			:layout => layout 
+		}
+	end
+
+	right_list = not_right_list = bottom_list = not_bottom_list = ""
+	(0..CELL_COUNT  - 1).each do |i|
+		right_list += (right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if (i + 1) % columns == 0
+		not_right_list += (not_right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if (i + 1) % columns != 0
+		bottom_list += (bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if ((i + 1).to_f / columns.to_f).ceil % rows == 0
+		not_bottom_list += (not_bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if ((i + 1).to_f / columns.to_f).ceil % rows != 0 
+	end
 %>
-
-@media <%= region[:media] %> {
-
-	div#main ul {
-		width: <%= region[:grid_size][0] * region[:target_columns] + SIZE_GRID_SPACING * (region[:target_columns] - 1) %>px;
-		min-width: <%= region[:grid_size][0] * region[:target_columns] + SIZE_GRID_SPACING * (region[:target_columns] - 1) %>px;
-		height: <%= region[:grid_size][1] * region[:target_rows] + SIZE_GRID_SPACING * (region[:target_rows] - 1) %>px;
-		min-height: <%= region[:grid_size][1] * region[:target_rows] + SIZE_GRID_SPACING * (region[:target_rows] - 1) %>px;
-	}
-
-	.grid_cell {
-		width: <%= region[:grid_size][0] %>px;
-		min-width: <%= region[:grid_size][0] %>px;
-		height: <%= region[:grid_size][1] %>px;
-		min-height: <%= region[:grid_size][1] %>px;
-		margin: 0 <%= SIZE_GRID_SPACING %>px <%= SIZE_GRID_SPACING %>px 0
-	}
-	#h-size:after {
-		content: "width:  <%= region[:grid_size][0] %> (<%= region[:target_columns] %>)"
-	}
-	#v-size:after {
-		content: "height:  <%= region[:grid_size][1] %> (<%= region[:target_rows] %>)"
-	}
-}		
-
 <%= right_list %> {
 	margin-right: 0
 }
 <%= bottom_list %> {
 	margin-bottom: 0
 }
-<% end %>
+<%	
+	queries.each do |query|
+		layout = query[:layout]
+%>
+@media <%= query[:query] %> {
+
+	#h-size:after {
+		content: "width:  <%= layout[:size][:width] %> (<%= query[:layout][:columns] %>)"
+	}
+
+	#v-size:after {
+		content: "height:  <%= layout[:size][:height] %> (<%= query[:layout][:rows] %>)"
+	}
+
+	div#main ul {
+		width: <%=layout[:matrix_width] %>px;
+		min-width: <%= layout[:matrix_width] %>px;
+		height: <%= layout[:matrix_height] %>px;
+		min-height: <%= layout[:matrix_height] %>px;
+	}
+
+	.grid_cell {
+		width: <%= layout[:size][:width] %>px;
+		min-width: <%= layout[:size][:width] %>px;
+		height: <%= layout[:size][:height] %>px;
+		min-height: <%= layout[:size][:height] %>px;
+		margin: 0 <%= layout[:grid_width_space] %>px <%= layout[:grid_height_space] %>px 0;
+	}
+
+	<%= not_right_list %> {
+		margin-right: <%= layout[:grid_width_space] %>px;
+	}
+	<%= not_bottom_list %> {
+		margin-bottom: <%= layout[:grid_height_space] %>px;
+	}
+}		
+<%	
+	end
+%>

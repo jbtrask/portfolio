@@ -10,17 +10,17 @@
 #sidebar {
   width: 100%;
   min-width: 100%;
-  height: <%= @sidebar_width['normal'] %>%;
-  min-height: <%= @sidebar_width['normal'] %>%;
+  height: <%= 100.0 - CONTENT_PERCENT['normal'] %>%;
+  min-height: <%= 100.0 - CONTENT_PERCENT['normal'] %>%;
 }
 
 #main {
-  top: <%= @sidebar_width['normal'] %>%;
+  top: <%= 100.0 - CONTENT_PERCENT['normal'] %>%;
   left: 0;
   width: 100%;
   min-width: 100%;
-  height: <%= 100 - @sidebar_width['normal'] %>%;
-  min-height: <%= 100 - @sidebar_width['normal'] %>%;
+  height: <%= CONTENT_PERCENT['normal'] %>%;
+  min-height: <%= CONTENT_PERCENT['normal'] %>%;
 }
 
-<%= render :partial => "items/style/smart_sizes", :locals => { :rows => 4, :columns => 6, :v_correct => @sidebar_width['normal'], :h_correct => 0 } %>
+<%= render :partial => "items/style/smart_sizes", :locals => { :rows => 4, :columns => 6, :vertical_content => CONTENT_PERCENT['normal'], :horizontal_content => 100.0 } %>

@@ -1,6 +1,6 @@
 #css_info {
 	background-color: #008000;
-	color: #FFFFFF;
+  color: #FFFFFF;
 }
 
 #layout:after {
@@ -10,17 +10,17 @@
 #sidebar {
   width: 100%;
   min-width: 100%;
-  height: <%= @sidebar_width['long'] %>%;
-  min-height: <%= @sidebar_width['long'] %>%;
+  height: <%= 100.0 - CONTENT_PERCENT['long'] %>%;
+  min-height: <%= 100.0 - CONTENT_PERCENT['long'] %>%;
 }
 
 #main {
-  top: <%= @sidebar_width['long'] %>%;
+  top: <%= 100.0 - CONTENT_PERCENT['long'] %>%;
   left: 0;
   width: 100%;
   min-width: 100%;
-  height: <%= 100 - @sidebar_width['long'] %>%;
-  min-height: <%= 100 - @sidebar_width['long'] %>%;
+  height: <%= CONTENT_PERCENT['long'] %>%;
+  min-height: <%= CONTENT_PERCENT['long'] %>%;
 }
 
-<%= render :partial => "items/style/smart_sizes", :locals => { :rows => nil, :columns => 1, :v_correct => @sidebar_width['long'], :h_correct => 0 } %>
+<%= render :partial => "items/style/smart_sizes", :locals => { :rows => 4, :columns => 6, :vertical_content => CONTENT_PERCENT['long'], :horizontal_content => 100.0 } %>

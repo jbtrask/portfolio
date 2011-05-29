@@ -8,10 +8,9 @@ Portfolio::Application.routes.draw do
 
   resources :classifications
 
-  root :controller => "items", :action => "index"
+  root :controller => "items", :action => "demo"
 
-  match "/demo.:format" => "items#demo"
-  match "/sizes.:format" => "items#sizes"
+  match "/demo" => "items#demo"
 
   match "/stylesheets/:stylesheet.:format" => "items#style"
 

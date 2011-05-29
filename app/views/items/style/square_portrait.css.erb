@@ -4,24 +4,23 @@
 }
 
 #layout:after {
-	content: "layout:  square portrait";
+	content: "layout:  compressed portrait";
 }
 
 #sidebar {
   width: 100%;
   min-width: 100%;
-  height: <%= @sidebar_width['compressed'] %>%;
-  min-height: <%= @sidebar_width['compressed'] %>%;
+  height: <%= 100.0 - CONTENT_PERCENT['compressed'] %>%;
+  min-height: <%= 100.0 - CONTENT_PERCENT['compressed'] %>%;
 }
 
 #main {
-  top: <%= @sidebar_width['compressed'] %>%;
+  top: <%= 100.0 - CONTENT_PERCENT['compressed'] %>%;
   left: 0;
   width: 100%;
   min-width: 100%;
-  height: <%= 100 - @sidebar_width['compressed'] %>%;
-  min-height: <%= 100 - @sidebar_width['compressed'] %>%;
+  height: <%= CONTENT_PERCENT['compressed'] %>%;
+  min-height: <%= CONTENT_PERCENT['compressed'] %>%;
 }
 
-<%= render :partial => "items/style/smart_sizes", :locals => { :rows => 4, :columns => 6, :v_correct => @sidebar_width['compressed'], :h_correct => 0 } %>
-
+<%= render :partial => "items/style/smart_sizes", :locals => { :rows => 4, :columns => 6, :vertical_content => CONTENT_PERCENT['compressed'], :horizontal_content => 100.0 } %>

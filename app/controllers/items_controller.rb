@@ -1,33 +1,26 @@
-SIZE_GRID_ASPECT_RATIO = 1.61803399
-SIZE_GRID_MIN = 60
-SIZE_GRID_MAX = 300
-SIZE_GRID_INCREMENT = 5
-SIZE_GRID_SPACING = 2
+GRID_ASPECT_RATIO = 1.61803399
+GRID_MIN = 50 #pixels
+GRID_MAX = 300 #pixels
+GRID_INCREMENT = 5 #pixels
+GRID_PADDING = 2.0 #percent
+MIN_GRID_SPACE = 1 #pixel
 
-SIZE_HORIZONTAL_MIN = 100
-SIZE_HORIZONTAL_MAX = 1900
-SIZE_HORIZONTAL_INCREMENT = 100
+MATRIX_MIN_WIDTH = 1 #cell
+MATRIX_MAX_WIDTH = 12 #cells
+MATRIX_MIN_HEIGHT = 1 #cell
+MATRIX_MAX_HEIGHT = 12 #cells
+MATRIX_PADDING = 5.0 #percent
+MIN_MATRIX_SPACE = 15 #px
 
-SIZE_VERTICAL_MIN = 100
-SIZE_VERTICAL_MAX = 1600
-SIZE_VERTICAL_INCREMENT = 100
+MOBILE_LIMIT = 480 #pixels
 
-SIZE_MOBILE_LIMIT = 480
+CELL_COUNT = 96 #cells
 
-ITEM_COUNT = 100
-
-LENGTHS = {
-  'mobile' => [480, [1, 1]],
-  'extra_small' => [600, [2,2]],
-  'small' => [720, [3, 3]],
-  'medium' => [840, [4, 4]],
-  'standard' => [960, [5, 5]],
-  'large' => [1080, [6, 6]],
-  'extra_large' => [1200, [7, 7]],
-  'jumbo' => [1201, [8, 8]]
+CONTENT_PERCENT = {
+  'normal' => 70.0, # %
+  'compressed' => 90.0, # %
+  'long' => 80.0 # %
 }
-
-MOBILE_THRESHOLD = 480
 
 ASPECT_RATIOS = {
   'narrow_portrait' => "1/2",
@@ -35,49 +28,6 @@ ASPECT_RATIOS = {
   'square_landscape' => "4/3",
   'wide_landscape' => "2/1"
 }
-
-VERTICAL_COUNT = [
-  [180, 1],
-  [360, 2],
-  [540, 3],
-  [720, 4],
-  [900, 5],
-  [1080, 6],
-  [1260, 7],
-  [1440, 8],
-  [1620, 9],
-  [1800, 10],
-  [1980, 11],
-  [nil, 12]
-]
-
-HORIZONTAL_COUNT = [
-  [120, 1],
-  [240, 2],
-  [360, 3],
-  [480, 4],
-  [600, 5],
-  [720, 6],
-  [840, 7],
-  [960, 8],
-  [1080, 9],
-  [1200, 10],
-  [1320, 11],
-  [nil, 12]
-]
-
-SIDEBAR_WIDTH = {
-  'compressed' => 10,
-  'long' => 25,
-  'normal' => 30
-}
-
-
-SIZES = [
-  [50, 81],
-  [100, 162],
-  [150, 243]
-]
 
 class ItemsController < ApplicationController
 
@@ -170,39 +120,13 @@ class ItemsController < ApplicationController
     end
   end
 
-#  def style
-#    @lengths = LENGTHS
-#    @aspect_ratios = ASPECT_RATIOS
-#    respond_to do |format|
-#      format.html
-#      format.css { render 'style.css.erb', :content_type => "text/css" }
-#    end
-#  end
-
-  def sizes
-    @values = LENGTHS.to_a.sort{|a, b| b[1][0] <=> a[1][0]}
-    puts @values
-    respond_to do |format|
-      format.css { render "sizes.css.erb", :content_type => "text/css" }
-    end
-  end
-
   def demo
-    @mobile_threshold = MOBILE_THRESHOLD
-    @aspect_ratios = ASPECT_RATIOS
   end
 
   def style
-    @h_count = HORIZONTAL_COUNT
-    @v_count = VERTICAL_COUNT
-    @sidebar_width = SIDEBAR_WIDTH
     respond_to do |format|
       format.css { render "items/style/#{params[:stylesheet]}.css.erb", :content_type => "text/css" }
     end
-  end
-
-  def test
-
   end
 
 end
