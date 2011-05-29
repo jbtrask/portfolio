@@ -1,7 +1,7 @@
 GRID_ASPECT_RATIO = 1.61803399
 GRID_MIN = 50 #pixels
 GRID_MAX = 300 #pixels
-GRID_INCREMENT = 5 #pixels
+GRID_INCREMENT = 12 #pixels
 GRID_PADDING = 2.0 #percent
 MIN_GRID_SPACE = 1 #pixel
 
@@ -14,12 +14,12 @@ MIN_MATRIX_SPACE = 15 #px
 
 MOBILE_LIMIT = 480 #pixels
 
-CELL_COUNT = 96 #cells
+CELL_COUNT = 24 #cells
 
 CONTENT_PERCENT = {
-  'normal' => 70.0, # %
-  'compressed' => 90.0, # %
-  'long' => 80.0 # %
+  'normal' => 68.0, # %
+  'compressed' => 92.0, # %
+  'long' => 85.0 # %
 }
 
 ASPECT_RATIOS = {

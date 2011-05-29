@@ -31,34 +31,60 @@
 		memo << { :width => value * GRID_INCREMENT, :height => ((value * GRID_INCREMENT).to_f * GRID_ASPECT_RATIO).round }
 	end
 
-	queries = sizes.inject([])  do |list, size|
-		layout = layout_info(size, rows, columns, horizontal_content, vertical_content) 
-		list << 
-		{ 
-			:query => "only screen" + 
-				(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
-				(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
-			:layout => layout 
-		}
+	# both are set
+	if !rows.nil? && !columns.nil?
+		queries = sizes.inject([])  do |list, size|
+			layout = layout_info(size, rows, columns, horizontal_content, vertical_content) 
+			list << 
+			{ 
+				:query => "only screen" + 
+					(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
+					(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
+				:layout => layout 
+			}
+		end
+	# one is set, the other is maxed
+	elsif !rows.nil? || !columns.nil?
+		queries = []
+		sizes.each do |size|
+
+			# row provided, auto column
+			if !rows.nil?
+				(MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |column_count|
+					layout = layout_info(size, rows, column_count, horizontal_content, vertical_content)
+					queries << { :query => "only screen" + (size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + (size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), :layout => layout }
+				end
+			# column provided, auto row
+			else
+				(MATRIX_MIN_HEIGHT..MATRIX_MAX_HEIGHT).each do |row_count|
+					layout = layout_info(size, row_count, columns, horizontal_content, vertical_content)
+					queries << 
+					{ 
+						:query => "only screen" + 
+							(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
+							(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
+						:layout => layout 
+					}
+				end
+			end
+		end
+			
+	# both are maxed (tbd)
+	else
+		queries = []
 	end
 
-	right_list = not_right_list = bottom_list = not_bottom_list = ""
-	(0..CELL_COUNT  - 1).each do |i|
-		right_list += (right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if (i + 1) % columns == 0
-		not_right_list += (not_right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if (i + 1) % columns != 0
-		bottom_list += (bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if ((i + 1).to_f / columns.to_f).ceil % rows == 0
-		not_bottom_list += (not_bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if ((i + 1).to_f / columns.to_f).ceil % rows != 0 
-	end
-%>
-<%= right_list %> {
-	margin-right: 0
-}
-<%= bottom_list %> {
-	margin-bottom: 0
-}
-<%	
 	queries.each do |query|
 		layout = query[:layout]
+		right_list = not_right_list = bottom_list = not_bottom_list = ""
+		(0..CELL_COUNT  - 1).each do |i|
+			right = (i + 1) % layout[:columns] == 0
+			bottom = ((i + 1).to_f / layout[:columns].to_f).ceil % layout[:rows] == 0
+			right_list += (right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if right
+			not_right_list += (not_right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if !right
+			bottom_list += (bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if bottom
+			not_bottom_list += (not_bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if !bottom 
+		end
 %>
 @media <%= query[:query] %> {
 
@@ -68,6 +94,11 @@
 
 	#v-size:after {
 		content: "height:  <%= layout[:size][:height] %> (<%= query[:layout][:rows] %>)"
+	}
+
+	html, body {
+		min-width: <%= layout[:required_width] %>px;
+		min-height: <%= layout[:required_height] %>px;
 	}
 
 	div#main ul {
@@ -85,12 +116,27 @@
 		margin: 0 <%= layout[:grid_width_space] %>px <%= layout[:grid_height_space] %>px 0;
 	}
 
+<% if !right_list.blank? %>
+	<%= right_list %> {
+		margin-right: 0
+	}
+<% end %>
+
+<% if !bottom_list.blank? %>
+	<%= bottom_list %> {
+		margin-bottom: 0
+	}
+<% end %>
+<% if !not_right_list.blank? %>
 	<%= not_right_list %> {
 		margin-right: <%= layout[:grid_width_space] %>px;
 	}
+<% end %>
+<% if !not_bottom_list.blank? %>
 	<%= not_bottom_list %> {
 		margin-bottom: <%= layout[:grid_height_space] %>px;
 	}
+<% end %>
 }		
 <%	
 	end
