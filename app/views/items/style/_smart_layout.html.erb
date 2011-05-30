@@ -1,11 +1,33 @@
 <%
-previous_ratio = nil
-ASPECT_RATIOS.each do |layout, ratio| %>
+	def ratio_list
+		list = []
+		(MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |width|
+			(MATRIX_MIN_HEIGHT..MATRIX_MAX_HEIGHT).each do |height|
+				list << { :width => width, :height => height, :ratio => width.to_f / height.to_f }
+			end
+		end
+		list.sort{|entry1, entry2| entry1[:ratio] <=> entry2[:ratio] }
+	end
+
+	def ratio_from_value(value)
+		list = ratio_list
+		ratio = list.first[:width].to_s + "/" + list.first[:height].to_s
+		ratio_list.each do |entry|
+			ratio = entry[:width].to_s + "/" + entry[:height].to_s if value.to_f >= entry[:ratio]
+		end
+		ratio
+	end
+
+	previous_ratio = nil
+	ASPECT_RATIOS.each do |layout, ratio| 
+		ratio = ratio_from_value(ratio) if !ratio.nil? && !ratio.index(".").nil?
+		puts ratio
+%>
 <link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (max-aspect-ratio: 1/1) and (min-height: <%= MOBILE_LIMIT  + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
 <link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (min-aspect-ratio: 1/1) and (min-width: <%= MOBILE_LIMIT  + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
 <%
-	previous_ratio = ratio
-end
+		previous_ratio = ratio
+	end
 %>
 <link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_portrait") %>" media="only screen and (max-height: <%= MOBILE_LIMIT %>px) and (max-aspect-ratio: 1/1)" >
 <link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_landscape") %>" media="only screen and (max-width: <%= MOBILE_LIMIT %>px) and (min-aspect-ratio: 1/1)" >

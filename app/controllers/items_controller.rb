@@ -1,7 +1,7 @@
 GRID_ASPECT_RATIO = 1.61803399
 GRID_MIN = 50 #pixels
 GRID_MAX = 300 #pixels
-GRID_INCREMENT = 12 #pixels
+GRID_INCREMENT = 5 #pixels
 GRID_PADDING = 2.0 #percent
 MIN_GRID_SPACE = 1 #pixel
 
@@ -9,27 +9,27 @@ MATRIX_MIN_WIDTH = 1 #cell
 MATRIX_MAX_WIDTH = 12 #cells
 MATRIX_MIN_HEIGHT = 1 #cell
 MATRIX_MAX_HEIGHT = 12 #cells
-MATRIX_PADDING = 5.0 #percent
-MIN_MATRIX_SPACE = 15 #px
+MATRIX_PADDING = 2.0 #percent
+MIN_MATRIX_SPACE = 5 #px
 
 MOBILE_LIMIT = 480 #pixels
 
 CELL_COUNT = 24 #cells
 
 CONTENT_PERCENT = {
-  'standard' => 68.0, #percent
+  'standard' => 72.0, #percent
   'compressed' => 92.0, #percent
-  'long' => 85.0 #percent
+  'long' => 88.0 #percent
 }
 
 ASPECT_RATIOS = { # width / height
-  'super_narrow_portrait' => "1/3",
-  'narrow_portrait' => "2/3",
-  'standard_portrait' => "4/5",
-  'compressed_portrait' => "1/1",
-  'compressed_landscape' => "5/4",
-  'standard_landscape' => "3/2",
-  'wide_landscape' => "3/1",
+  'super_narrow_portrait' => ".25",
+  'narrow_portrait' => ".4",
+  'standard_portrait' => ".825",
+  'compressed_portrait' => "1.0",
+  'compressed_landscape' => "1.2",
+  'standard_landscape' => "2.5",
+  'wide_landscape' => "4.0",
   'super_wide_landscape' => nil
 }
 

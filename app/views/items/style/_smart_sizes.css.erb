@@ -72,7 +72,13 @@
 			if !rows.nil?
 				(MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |column_count|
 					layout = layout_info(name, size, rows, column_count, horizontal_content, vertical_content)
-					queries << { :query => "only screen" + (size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + (size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), :layout => layout }
+					queries << 
+					{ 
+						:query => "only screen" + 
+							(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
+							(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
+						:layout => layout 
+					}
 				end
 			# column provided, auto row
 			else
