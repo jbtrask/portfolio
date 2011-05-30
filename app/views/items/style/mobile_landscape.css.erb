@@ -1,22 +1,10 @@
 #css_info {
 	background-color: #000080;
-  color: #FFFFFF;
-}
-
-#layout:after {
-	content: "layout:  mobile landscape";
-}
-
-#v-size:after {
-	content: "rows:  1";
-}
-
-#h-size:after {
-	content: "cols:  1";
+	color: #FFFFFF;
 }
 
 #sidebar {
-  display: none;
+	display: none;
 }
 
 #main {
@@ -28,9 +16,4 @@
   min-height: 100%;
 }
 
-.grid_cell {
-	height: 100%;
-	min-height: 100%;
-	width: 100%;
-	min-width: 100%;
-}
+<%= render :partial => "items/style/smart_sizes", :locals => { :name => 'mobile landscape', :rows => 1, :columns => nil, :vertical_content => 100.0, :horizontal_content => 100.0 } %>

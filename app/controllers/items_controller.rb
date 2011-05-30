@@ -17,16 +17,20 @@ MOBILE_LIMIT = 480 #pixels
 CELL_COUNT = 24 #cells
 
 CONTENT_PERCENT = {
-  'normal' => 68.0, # %
-  'compressed' => 92.0, # %
-  'long' => 85.0 # %
+  'standard' => 68.0, #percent
+  'compressed' => 92.0, #percent
+  'long' => 85.0 #percent
 }
 
-ASPECT_RATIOS = {
-  'narrow_portrait' => "1/2",
-  'square_portrait' => "3/4",
-  'square_landscape' => "4/3",
-  'wide_landscape' => "2/1"
+ASPECT_RATIOS = { # width / height
+  'super_narrow_portrait' => "1/3",
+  'narrow_portrait' => "2/3",
+  'standard_portrait' => "4/5",
+  'compressed_portrait' => "1/1",
+  'compressed_landscape' => "5/4",
+  'standard_landscape' => "3/2",
+  'wide_landscape' => "3/1",
+  'super_wide_landscape' => nil
 }
 
 class ItemsController < ApplicationController

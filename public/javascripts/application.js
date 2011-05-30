@@ -1,20 +1,18 @@
 var $$ = jQuery.noConflict();
 
 $$(document).ready(function() {
-	//setSize();
+	$$(window).resize(function() {
+			setSize();
+	});
 	$$("#css_info").click(function() {
 		setSize();
-		$$(window).resize(function() {
-			$$("#width").html("---");
-			$$("#height").html("---");
-			$$("#aspect_ratio").html("---");
-		});
 	});
+	setSize();
 });
 
 function setSize() {
-	$$("#width").html($$(window).width());
-	$$("#height").html($$(window).height());
+	$$("#css_info").css('opacity', 0.3);
+	$$("#dimensions").html($$(window).width() + " x " + $$(window).height());
 	$$("#aspect_ratio").html((parseFloat($$(window).width()) / parseFloat($$(window).height())).toFixed(3));
 }
 

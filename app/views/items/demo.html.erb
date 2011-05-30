@@ -1,6 +1,8 @@
 <% content_for :head do %>
-  	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("responsive/default") %>" >
-	<%= render "items/style/smart_layout" %>
+	<style type="text/css">
+		<%= render "items/style/default.css" %>
+	</style>
+	<%= render "items/style/smart_layout"%>
 <% end %>
 
 <div id="sidebar">
@@ -21,11 +23,10 @@
 </div>
 
 <div id="css_info">
-	<p id="layout"></p>
-	<p id="v-size"></p>
-	<p id="h-size"></p>
-	<p>dimensions:  <span id="width">---</span> x <span id="height">---</span></p>
-	<p>aspect ratio:  <span id="aspect_ratio">---</span></p>
+	<p id="layout_info"></p>
+	<hr>
+	<p>dimensions:  <span id="dimensions">&lt; Click for Info &gt;</span></p>
+	<p>aspect ratio:  <span id="aspect_ratio">&lt; Click for Info &gt;</span></p>
 </div>
 
 

@@ -1,22 +1,10 @@
 #css_info {
 	background-color: #008000;
-  	color: #FFFFFF;
-}
-
-#layout:after {
-	content: "layout:  mobile portrait";
-}
-
-#v-size:after {
-	content: "rows:  1";
-}
-
-#h-size:after {
-	content: "cols:  1";
+	color: #FFFFFF;
 }
 
 #sidebar {
-  display: none;
+	display: none;
 }
 
 #main {
@@ -28,9 +16,4 @@
   min-height: 100%;
 }
 
-.grid_cell {
-	height: 100%;
-	min-height: 100%;
-	width: 100%;
-	min-width: 100%;
-}
+<%= render :partial => "items/style/smart_sizes", :locals => { :name => 'mobile portrait', :rows => nil, :columns => 1, :vertical_content => 100.0, :horizontal_content => 100.0 } %>

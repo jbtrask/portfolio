@@ -1,11 +1,11 @@
+<%
+previous_ratio = nil
+ASPECT_RATIOS.each do |layout, ratio| %>
+<link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (max-aspect-ratio: 1/1) and (min-height: <%= MOBILE_LIMIT  + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
+<link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (min-aspect-ratio: 1/1) and (min-width: <%= MOBILE_LIMIT  + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
+<%
+	previous_ratio = ratio
+end
+%>
 <link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_portrait") %>" media="only screen and (max-height: <%= MOBILE_LIMIT %>px) and (max-aspect-ratio: 1/1)" >
 <link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_landscape") %>" media="only screen and (max-width: <%= MOBILE_LIMIT %>px) and (min-aspect-ratio: 1/1)" >
-
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("square_landscape") %>" media="only screen and (min-width: <%= MOBILE_LIMIT + 1 %>px) and (min-aspect-ratio: 1/1) and (max-aspect-ratio: <%= ASPECT_RATIOS["square_landscape"] %>)" >
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("square_portrait") %>" media="only screen and (min-height: <%= MOBILE_LIMIT + 1 %>px) and (min-aspect-ratio: <%= ASPECT_RATIOS["square_portrait"] %>) and (max-aspect-ratio: 1/1)" >
-
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("normal_landscape") %>" media="only screen and (min-width: <%= MOBILE_LIMIT + 1 %>px) and (min-aspect-ratio: <%= ASPECT_RATIOS["square_landscape"] %>) and (max-aspect-ratio: <%= ASPECT_RATIOS["wide_landscape"] %>)" >
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("normal_portrait") %>" media="only screen and (min-height: <%= MOBILE_LIMIT + 1 %>px) and (min-aspect-ratio: <%= ASPECT_RATIOS["narrow_portrait"] %>) and (max-aspect-ratio: <%= ASPECT_RATIOS["square_portrait"] %>)" >
-
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("wide_landscape") %>" media="only screen and (min-width: <%= MOBILE_LIMIT + 1 %>px) and (min-aspect-ratio: <%= ASPECT_RATIOS["wide_landscape"] %>)" >
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("narrow_portrait") %>" media="only screen and (min-height: <%= MOBILE_LIMIT + 1 %>px) and (max-aspect-ratio: <%= ASPECT_RATIOS["narrow_portrait"] %>)" >

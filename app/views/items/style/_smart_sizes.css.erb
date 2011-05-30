@@ -1,16 +1,36 @@
 <% 
 	def space(length, percent, min = 0)
 		space = (length.to_f * percent.to_f / 100.0).floor
-		space < min.to_i ? min.to_i : space
-		space	
+		space = space < min.to_i ? min.to_i : space
+		space
 	end
 
 	def corrected_length(content_length, content_percent)
 		(content_length.to_f / (content_percent.to_f / 100.0)).ceil
 	end
 
-	def layout_info(size, rows, columns, horizontal_content, vertical_content)
+	def layout_to_html(layout) 
+		html = "name:  " + layout[:name] 
+		html += " | cell width:  " + layout[:size][:width].to_s 
+		html += " | cell height:  " + layout[:size][:height].to_s 
+		html += " | rows:  " + layout[:rows].to_s
+		html += " | columns:  " + layout[:columns].to_s
+		html += " | grid width space:  " + layout[:grid_width_space].to_s
+		html += " | grid height space:  " + layout[:grid_height_space].to_s
+		html += " | matrix width:  " + layout[:matrix_width].to_s
+		html += " | matrix height:  " + layout[:matrix_height].to_s
+		html += " | matrix width space:  " + layout[:matrix_width_space].to_s
+		html += " | matrix height space:  " + layout[:matrix_height_space].to_s
+		html += " | required width:  " + layout[:required_width].to_s
+		html += " | required height:  " + layout[:required_height].to_s
+		html += " | corrected required width:  " + layout[:corrected_required_width].to_s
+		html += " | corrected required height:  " + layout[:corrected_required_height].to_s
+		html
+	end
+
+	def layout_info(name, size, rows, columns, horizontal_content, vertical_content)
 		info = {}
+		info[:name] = name
 		info[:size] = size
 		info[:rows] = rows
 		info[:columns] = columns
@@ -34,7 +54,7 @@
 	# both are set
 	if !rows.nil? && !columns.nil?
 		queries = sizes.inject([])  do |list, size|
-			layout = layout_info(size, rows, columns, horizontal_content, vertical_content) 
+			layout = layout_info(name, size, rows, columns, horizontal_content, vertical_content) 
 			list << 
 			{ 
 				:query => "only screen" + 
@@ -51,13 +71,13 @@
 			# row provided, auto column
 			if !rows.nil?
 				(MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |column_count|
-					layout = layout_info(size, rows, column_count, horizontal_content, vertical_content)
+					layout = layout_info(name, size, rows, column_count, horizontal_content, vertical_content)
 					queries << { :query => "only screen" + (size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + (size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), :layout => layout }
 				end
 			# column provided, auto row
 			else
 				(MATRIX_MIN_HEIGHT..MATRIX_MAX_HEIGHT).each do |row_count|
-					layout = layout_info(size, row_count, columns, horizontal_content, vertical_content)
+					layout = layout_info(name, size, row_count, columns, horizontal_content, vertical_content)
 					queries << 
 					{ 
 						:query => "only screen" + 
@@ -88,17 +108,8 @@
 %>
 @media <%= query[:query] %> {
 
-	#h-size:after {
-		content: "width:  <%= layout[:size][:width] %> (<%= query[:layout][:columns] %>)"
-	}
-
-	#v-size:after {
-		content: "height:  <%= layout[:size][:height] %> (<%= query[:layout][:rows] %>)"
-	}
-
-	html, body {
-		min-width: <%= layout[:required_width] %>px;
-		min-height: <%= layout[:required_height] %>px;
+	#layout_info:after {
+		content: "<%= layout_to_html(layout) %>"
 	}
 
 	div#main ul {

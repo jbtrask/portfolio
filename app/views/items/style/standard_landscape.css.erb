@@ -1,0 +1,22 @@
+#css_info {
+	background-color: #000080;
+	color: #FFFFFF;
+}
+
+#sidebar {
+  width: <%= 100.0 - CONTENT_PERCENT['standard'] %>%;
+  min-width: <%= 100.0 - CONTENT_PERCENT['standard'] %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+#main {
+  top: 0;
+  left: <%= 100.0 - CONTENT_PERCENT['standard'] %>%;
+  width: <%= CONTENT_PERCENT['standard'] %>%;
+  min-width: <%= CONTENT_PERCENT['standard'] %>%;
+  height: 100%;
+  min-height: 100%;
+}
+
+<%= render :partial => "items/style/smart_sizes", :locals => { :name => 'standard landscape', :rows => 4, :columns => 6, :vertical_content => 100.0, :horizontal_content => CONTENT_PERCENT['standard'] } %>
