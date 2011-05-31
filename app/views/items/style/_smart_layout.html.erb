@@ -21,13 +21,17 @@
 	previous_ratio = nil
 	ASPECT_RATIOS.each do |layout, ratio| 
 		ratio = ratio_from_value(ratio) if !ratio.nil? && !ratio.index(".").nil?
-		puts ratio
+		min_layout = layout_info("default", { :width => 100, :height => 162 }, 4, 6, CONTENT_PERCENT['standard'], CONTENT_PERCENT['standard'] )
+		min_height = min_width =  MOBILE_LIMIT	
+		min_height = min_layout[:corrected_required_height] > min_height ? min_layout[:corrected_required_height] : min_height
+		min_width = min_layout[:corrected_required_width] > min_width ? min_layout[:corrected_required_width] : min_width
 %>
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (max-aspect-ratio: 1/1) and (min-height: <%= MOBILE_LIMIT  + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (min-aspect-ratio: 1/1) and (min-width: <%= MOBILE_LIMIT  + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
+<link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (max-aspect-ratio: 1/1) and (min-height: <%= min_height + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
+<link rel="stylesheet" type="text/css" href="<%= stylesheet_path(layout) %>" media="only screen and (min-aspect-ratio: 1/1) (min-width: <%= min_width + 1 %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" > 
+<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_portrait") %>" media="only screen and (max-aspect-ratio: 1/1) and (max-height: <%= min_height %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" >
+<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_landscape") %>" media="only screen and (min-aspect-ratio: 1/1) and (max-width: <%= min_width %>px)<%= previous_ratio.nil? ? "" : " and (min-aspect-ratio: " + previous_ratio + ")" %><%= ratio.nil? ? "" : " and (max-aspect-ratio: " + ratio + ")" %>" >
+
 <%
 		previous_ratio = ratio
 	end
 %>
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_portrait") %>" media="only screen and (max-height: <%= MOBILE_LIMIT %>px) and (max-aspect-ratio: 1/1)" >
-<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile_landscape") %>" media="only screen and (max-width: <%= MOBILE_LIMIT %>px) and (min-aspect-ratio: 1/1)" >
