@@ -1,6 +1,8 @@
 <%
 	previous_ratio = nil
-	ASPECT_RATIOS.each do |layout, ratio| 
+	ASPECT_RATIOS.to_a.sort{|ar1, ar2| ar1[1] <=> ar2[1]}.each do |ar| 
+		layout = ar[0]
+		ratio = ar[1]
 		ratio = ratio_from_value(ratio) if !ratio.nil? && !ratio.index(".").nil?
 		min_layout = layout_info("minimum", { :width => GRID_MIN, :height => (GRID_MIN.to_f * GRID_ASPECT_RATIO).round }, MINIMUM_LAYOUT[layout][0], MINIMUM_LAYOUT[layout][1], MINIMUM_LAYOUT[layout][2], MINIMUM_LAYOUT[layout][3] )
 		min_height = min_width =  MOBILE_LIMIT	
