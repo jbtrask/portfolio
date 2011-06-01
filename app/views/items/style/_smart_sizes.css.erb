@@ -1,52 +1,4 @@
 <% 
-	def space(length, percent, min = 0)
-		space = (length.to_f * percent.to_f / 100.0).floor
-		space = space < min.to_i ? min.to_i : space
-		space
-	end
-
-	def corrected_length(content_length, content_percent)
-		(content_length.to_f / (content_percent.to_f / 100.0)).ceil
-	end
-
-	def layout_to_html(layout) 
-		html = "name:  " + layout[:name] 
-		html += " | cell width:  " + layout[:size][:width].to_s 
-		html += " | cell height:  " + layout[:size][:height].to_s 
-		html += " | rows:  " + layout[:rows].to_s
-		html += " | columns:  " + layout[:columns].to_s
-		html += " | grid width space:  " + layout[:grid_width_space].to_s
-		html += " | grid height space:  " + layout[:grid_height_space].to_s
-		html += " | matrix width:  " + layout[:matrix_width].to_s
-		html += " | matrix height:  " + layout[:matrix_height].to_s
-		html += " | matrix width space:  " + layout[:matrix_width_space].to_s
-		html += " | matrix height space:  " + layout[:matrix_height_space].to_s
-		html += " | required width:  " + layout[:required_width].to_s
-		html += " | required height:  " + layout[:required_height].to_s
-		html += " | corrected required width:  " + layout[:corrected_required_width].to_s
-		html += " | corrected required height:  " + layout[:corrected_required_height].to_s
-		html
-	end
-
-	def layout_info(name, size, rows, columns, horizontal_content, vertical_content)
-		info = {}
-		info[:name] = name
-		info[:size] = size
-		info[:rows] = rows
-		info[:columns] = columns
-		info[:grid_width_space] = space(size[:width], GRID_PADDING, MIN_GRID_SPACE)
-		info[:grid_height_space] = space(size[:height], GRID_PADDING, MIN_GRID_SPACE)
-		info[:matrix_width] = columns * size[:width] + (columns - 1) * info[:grid_width_space]
-		info[:matrix_height] = rows * size[:height] + (rows - 1) * info[:grid_height_space]
-		info[:matrix_width_space] = space(info[:matrix_width], MATRIX_PADDING, MIN_MATRIX_SPACE) 		
-		info[:matrix_height_space] = space(info[:matrix_height], MATRIX_PADDING, MIN_MATRIX_SPACE)
-		info[:required_width] = info[:matrix_width] + 2 * info[:matrix_width_space]
-		info[:required_height] = info[:matrix_height] + 2 * info[:matrix_height_space]
-		info[:corrected_required_width] = corrected_length(info[:required_width], horizontal_content)
-		info[:corrected_required_height] = corrected_length(info[:required_height], vertical_content)
-		info
-	end
-
 	sizes = (GRID_MIN / GRID_INCREMENT..GRID_MAX / GRID_INCREMENT).inject([]) do |memo, value|
 		memo << { :width => value * GRID_INCREMENT, :height => ((value * GRID_INCREMENT).to_f * GRID_ASPECT_RATIO).round }
 	end
@@ -75,8 +27,8 @@
 					queries << 
 					{ 
 						:query => "only screen" + 
-							(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
-							(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
+							(column_count == MATRIX_MIN_WIDTH ? "" : " and (min-width: #{layout[:corrected_required_width]}px)") +
+							(size[:height] == sizes.first[:height] ? "" : " and (min-height: #{layout[:corrected_required_height]}px)"),
 						:layout => layout 
 					}
 				end
@@ -87,8 +39,8 @@
 					queries << 
 					{ 
 						:query => "only screen" + 
-							(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
-							(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
+							(row_count == MATRIX_MIN_HEIGHT ? "" : " and (min-height: #{layout[:corrected_required_height]}px)") +
+							(size[:width] == sizes.first[:width] ? "" : " and (min-width: #{layout[:corrected_required_width]}px)"),
 						:layout => layout 
 					}
 				end

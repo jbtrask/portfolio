@@ -1,16 +1,16 @@
 GRID_ASPECT_RATIO = 1.61803399
 GRID_MIN = 50 #pixels
 GRID_MAX = 300 #pixels
-GRID_INCREMENT = 5 #pixels
+GRID_INCREMENT = 10 #pixels
 GRID_PADDING = 2.0 #percent
 MIN_GRID_SPACE = 1 #pixel
 
 MATRIX_MIN_WIDTH = 1 #cell
-MATRIX_MAX_WIDTH = 12 #cells
+MATRIX_MAX_WIDTH = 24 #cells
 MATRIX_MIN_HEIGHT = 1 #cell
-MATRIX_MAX_HEIGHT = 12 #cells
+MATRIX_MAX_HEIGHT = 24 #cells
 MATRIX_PADDING = 2.0 #percent
-MIN_MATRIX_SPACE = 5 #px
+MIN_MATRIX_SPACE = 10 #px
 
 MOBILE_LIMIT = 480 #pixels
 
@@ -32,6 +32,89 @@ ASPECT_RATIOS = { # width / height
   'wide_landscape' => "4.0",
   'super_wide_landscape' => nil
 }
+
+MINIMUM_LAYOUT = {
+  'super_narrow_portrait' => [1, 1, 100.0, CONTENT_PERCENT['long']],
+  'narrow_portrait' => [1, 2, 100.0, CONTENT_PERCENT['long']],
+  'standard_portrait' => [4, 6, 100.0, CONTENT_PERCENT['standard']],
+  'compressed_portrait' => [4, 6, 100.0, CONTENT_PERCENT['compressed']],
+  'compressed_landscape' => [4, 6, CONTENT_PERCENT['compressed'], 100.0],
+  'standard_landscape' => [4, 6, CONTENT_PERCENT['standard'], 100.0],
+  'wide_landscape' => [2, 1, CONTENT_PERCENT['long'], 100.0],
+  'super_wide_landscape' => [1, 1, CONTENT_PERCENT['long'], 100.0]
+}
+
+def space(length, percent, min = 0)
+  space = (length.to_f * percent.to_f / 100.0).floor
+  space = space < min.to_i ? min.to_i : space
+  space
+end
+
+def corrected_length(content_length, content_percent)
+  (content_length.to_f / (content_percent.to_f / 100.0)).ceil
+end
+
+def layout_to_html(layout) 
+  html = "name:  " + layout[:name] 
+  html += " | cell width:  " + layout[:size][:width].to_s 
+  html += " | cell height:  " + layout[:size][:height].to_s 
+  html += " | rows:  " + layout[:rows].to_s
+  html += " | columns:  " + layout[:columns].to_s
+  html += " | grid width space:  " + layout[:grid_width_space].to_s
+  html += " | grid height space:  " + layout[:grid_height_space].to_s
+  html += " | matrix width:  " + layout[:matrix_width].to_s
+  html += " | matrix height:  " + layout[:matrix_height].to_s
+  html += " | matrix width space:  " + layout[:matrix_width_space].to_s
+  html += " | matrix height space:  " + layout[:matrix_height_space].to_s
+  html += " | required width:  " + layout[:required_width].to_s
+  html += " | required height:  " + layout[:required_height].to_s
+  html += " | corrected required width:  " + layout[:corrected_required_width].to_s
+  html += " | corrected required height:  " + layout[:corrected_required_height].to_s
+  html
+end
+
+def layout_info(name, size, rows, columns, horizontal_content, vertical_content)
+  info = {}
+  info[:name] = name
+  info[:size] = size
+  info[:rows] = rows
+  info[:columns] = columns
+  info[:grid_width_space] = space(size[:width], GRID_PADDING, MIN_GRID_SPACE)
+  info[:grid_height_space] = space(size[:height], GRID_PADDING, MIN_GRID_SPACE)
+  info[:matrix_width] = columns * size[:width] + (columns - 1) * info[:grid_width_space]
+  info[:matrix_height] = rows * size[:height] + (rows - 1) * info[:grid_height_space]
+  info[:matrix_width_space] = space(info[:matrix_width], MATRIX_PADDING, MIN_MATRIX_SPACE)    
+  info[:matrix_height_space] = space(info[:matrix_height], MATRIX_PADDING, MIN_MATRIX_SPACE)
+  info[:required_width] = info[:matrix_width] + 2 * info[:matrix_width_space]
+  info[:required_height] = info[:matrix_height] + 2 * info[:matrix_height_space]
+  info[:corrected_required_width] = corrected_length(info[:required_width], horizontal_content)
+  info[:corrected_required_height] = corrected_length(info[:required_height], vertical_content)
+  info
+end
+
+def ratio_list
+  list = []
+  (MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |width|
+    (MATRIX_MIN_HEIGHT..MATRIX_MAX_HEIGHT).each do |height|
+      list << { :width => width, :height => height, :ratio => width.to_f / height.to_f }
+    end
+  end
+  list.sort{|entry1, entry2| entry1[:ratio] <=> entry2[:ratio] }
+end
+
+def ratio_from_value(value)
+  list = ratio_list
+  ratio = list.first[:width].to_s + "/" + list.first[:height].to_s
+  ratio_list.each do |entry|
+    ratio = entry[:width].to_s + "/" + entry[:height].to_s if value.to_f >= entry[:ratio]
+  end
+  ratio
+end
+
+def value_from_ratio(ratio)
+  values = ratio.split("/")
+  values[0].to_f / values[1].to_f
+end
 
 class ItemsController < ApplicationController
 
