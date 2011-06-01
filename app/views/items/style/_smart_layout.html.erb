@@ -1,6 +1,9 @@
 <%
 	previous_ratio = nil
-	ASPECT_RATIOS.to_a.sort{|ar1, ar2| ar1[1] <=> ar2[1]}.each do |ar| 
+	ratios = ASPECT_RATIOS.to_a.sort{|a1, a2| a1[1].to_f <=> a2[1].to_f}
+	ratios << ratios.delete_at(0)
+	puts ratios.inspect
+	ratios.each do |ar| 
 		layout = ar[0]
 		ratio = ar[1]
 		ratio = ratio_from_value(ratio) if !ratio.nil? && !ratio.index(".").nil?
