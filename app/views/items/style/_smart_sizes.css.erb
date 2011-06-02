@@ -12,7 +12,9 @@
 				:query => "only screen" + 
 					(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
 					(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
-				:layout => layout 
+				:layout => layout,
+				:min_width => layout[:corrected_required_width],
+				:min_height => layout[:corrected_required_height]
 			}
 		end
 	# one is set, the other is maxed
@@ -24,24 +26,32 @@
 			if !rows.nil?
 				(MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |column_count|
 					layout = layout_info(name, size, rows, column_count, horizontal_content, vertical_content)
+					min_width = (column_count == MATRIX_MIN_WIDTH ? nil : layout[:corrected_required_width])
+					min_height = (size[:height] == sizes.first[:height] ? nil : layout[:corrected_required_height]) 
 					queries << 
 					{ 
 						:query => "only screen" + 
-							(column_count == MATRIX_MIN_WIDTH ? "" : " and (min-width: #{layout[:corrected_required_width]}px)") +
-							(size[:height] == sizes.first[:height] ? "" : " and (min-height: #{layout[:corrected_required_height]}px)"),
-						:layout => layout 
+							(min_width.nil? ? "" : " and (min-width: #{min_width}px)") +
+							(min_height.nil? ? "" : " and (min-height: #{min_height}px)"),
+						:layout => layout,
+						:min_height => min_height,
+						:min_width => min_width 
 					}
 				end
 			# column provided, auto row
 			else
 				(MATRIX_MIN_HEIGHT..MATRIX_MAX_HEIGHT).each do |row_count|
 					layout = layout_info(name, size, row_count, columns, horizontal_content, vertical_content)
+					min_width = (size[:width] == sizes.first[:width] ? nil : layout[:corrected_required_width])
+					min_height = (row_count == MATRIX_MIN_HEIGHT ? nil : layout[:corrected_required_height])
 					queries << 
 					{ 
 						:query => "only screen" + 
-							(row_count == MATRIX_MIN_HEIGHT ? "" : " and (min-height: #{layout[:corrected_required_height]}px)") +
-							(size[:width] == sizes.first[:width] ? "" : " and (min-width: #{layout[:corrected_required_width]}px)"),
-						:layout => layout 
+							(min_height.nil? ? "" : " and (min-height: #{min_height}px)") +
+							(min_width.nil? ? "" : " and (min-width: #{min_width}px)"),
+						:layout => layout,
+						:min_height => min_height,
+						:min_width => min_width 
 					}
 				end
 			end
@@ -66,12 +76,20 @@
 %>
 @media <%= query[:query] %> {
 
+	#query_min_height:after {
+		content: "<%= query[:min_height].to_s %>px";
+	}
+
+	#query_min_width:after {
+		content: "<%= query[:min_width].to_s %>px";
+	}
+
 	#layout_info:after {
-		content: "<%= layout_to_html(layout) %>"
+		content: "<%= layout_to_html(layout) %>";
 	}
 
 	div#main ul {
-		width: <%=layout[:matrix_width] %>px;
+		width: <%= layout[:matrix_width] %>px;
 		min-width: <%= layout[:matrix_width] %>px;
 		height: <%= layout[:matrix_height] %>px;
 		min-height: <%= layout[:matrix_height] %>px;
