@@ -1,62 +1,91 @@
-<% 
+<%
 	sizes = (GRID_MIN / GRID_INCREMENT..GRID_MAX / GRID_INCREMENT).inject([]) do |memo, value|
 		memo << { :width => value * GRID_INCREMENT, :height => ((value * GRID_INCREMENT).to_f * GRID_ASPECT_RATIO).round }
 	end
 
 	# both are set
 	if !rows.nil? && !columns.nil?
-		queries = sizes.inject([])  do |list, size|
-			layout = layout_info(name, size, rows, columns, horizontal_content, vertical_content) 
-			list << 
-			{ 
-				:query => "only screen" + 
-					(size == sizes.first ? "" : " and (min-height: " + layout[:corrected_required_height].to_s + "px)") + 
-					(size == sizes.first ? "" : " and (min-width: " + layout[:corrected_required_width].to_s + "px)"), 
-				:layout => layout,
-				:min_width => layout[:corrected_required_width],
-				:min_height => layout[:corrected_required_height]
-			}
+
+		queries = []
+		sizes.each_with_index do |size, i|
+      layout = layout_info(name, size, rows, columns, horizontal_content, vertical_content)
+			next_layout = i == sizes.size - 1 ? nil : layout_info(name, sizes[i + 1], rows, columns, horizontal_content, vertical_content)
+			min_width = i == 0 ? nil : layout[:corrected_required_width]
+			min_height = i == 0 ? nil : layout[:corrected_required_height]
+			max_width = next_layout.nil? ? nil : next_layout[:corrected_required_width] - 1
+      max_height = next_layout.nil? ? nil : next_layout[:corrected_required_height] - 1
+		  queries <<
+        {
+          :query => "only screen" +
+            (min_width.nil? ? "" : " and (min-width: " + min_width.to_s + "px)") +
+            (min_height.nil? ? "" : " and (min-height: " + min_height.to_s + "px)") +
+            (max_width.nil? ? "" : " and (max-width: " + max_width.to_s + "px)") +
+            (max_height.nil? ? "" : " and (max-height: " + max_height.to_s + "px)"),
+          :layout => layout,
+          :min_width => min_width,
+          :min_height => min_height,
+          :max_width => max_width,
+          :max_height => max_height
+        }
 		end
+
 	# one is set, the other is maxed
 	elsif !rows.nil? || !columns.nil?
+
 		queries = []
-		sizes.each do |size|
+		sizes.each_with_index do |size, i|
 
 			# row provided, auto column
 			if !rows.nil?
 				(MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |column_count|
 					layout = layout_info(name, size, rows, column_count, horizontal_content, vertical_content)
+          next_width = column_count == MATRIX_MAX_WIDTH ? nil : layout_info(name, size, rows, column_count + 1, horizontal_content, vertical_content)
+          next_height = i == sizes.size - 1 ? nil : layout_info(name, sizes[i + 1], rows, column_count, horizontal_content, vertical_content)
 					min_width = (column_count == MATRIX_MIN_WIDTH ? nil : layout[:corrected_required_width])
-					min_height = (size[:height] == sizes.first[:height] ? nil : layout[:corrected_required_height]) 
-					queries << 
-					{ 
-						:query => "only screen" + 
-							(min_width.nil? ? "" : " and (min-width: #{min_width}px)") +
-							(min_height.nil? ? "" : " and (min-height: #{min_height}px)"),
-						:layout => layout,
-						:min_height => min_height,
-						:min_width => min_width 
-					}
+					min_height = (i == 0 ? nil : layout[:corrected_required_height])
+					max_width = next_width.nil? ? nil : next_width - 1
+					max_height = next_height.nil? ? nil : next_height - 1
+					queries <<
+          {
+            :query => "only screen" +
+              (min_width.nil? ? "" : " and (min-width: " + min_width.to_s + "px)") +
+              (min_height.nil? ? "" : " and (min-height: " + min_height.to_s + "px)") +
+              (max_width.nil? ? "" : " and (max-width: " + max_width.to_s + "px)") +
+              (max_height.nil? ? "" : " and (max-height: " + max_height.to_s + "px)"),
+            :layout => layout,
+            :min_width => min_width,
+            :min_height => min_height,
+            :max_width => max_width,
+            :max_height => max_height
+          }
 				end
 			# column provided, auto row
 			else
 				(MATRIX_MIN_HEIGHT..MATRIX_MAX_HEIGHT).each do |row_count|
 					layout = layout_info(name, size, row_count, columns, horizontal_content, vertical_content)
-					min_width = (size[:width] == sizes.first[:width] ? nil : layout[:corrected_required_width])
+          next_width = i == sizes.size - 1 ? nil : layout_info(name, size[i + 1], row_count, columns, horizontal_content, vertical_content)
+          next_height = row_count == MATRIX_MAX_HEIGHT ? nil : layout_info(name, size, row_count + 1, columns, horizontal_content, vertical_content)
+					min_width = (i == 0 ? nil : layout[:corrected_required_width])
 					min_height = (row_count == MATRIX_MIN_HEIGHT ? nil : layout[:corrected_required_height])
-					queries << 
-					{ 
-						:query => "only screen" + 
-							(min_height.nil? ? "" : " and (min-height: #{min_height}px)") +
-							(min_width.nil? ? "" : " and (min-width: #{min_width}px)"),
-						:layout => layout,
-						:min_height => min_height,
-						:min_width => min_width 
-					}
+					max_width = next_width.nil? ? nil : next_width - 1
+					max_height = next_height.nil? ? nil : next_height - 1
+					queries <<
+          {
+            :query => "only screen" +
+              (min_width.nil? ? "" : " and (min-width: " + min_width.to_s + "px)") +
+              (min_height.nil? ? "" : " and (min-height: " + min_height.to_s + "px)") +
+              (max_width.nil? ? "" : " and (max-width: " + max_width.to_s + "px)") +
+              (max_height.nil? ? "" : " and (max-height: " + max_height.to_s + "px)"),
+            :layout => layout,
+            :min_width => min_width,
+            :min_height => min_height,
+            :max_width => max_width,
+            :max_height => max_height
+          }
 				end
 			end
 		end
-			
+
 	# both are maxed (tbd)
 	else
 		queries = []
@@ -65,24 +94,32 @@
 	queries.each do |query|
 		layout = query[:layout]
 		right_list = not_right_list = bottom_list = not_bottom_list = ""
-		(0..CELL_COUNT  - 1).each do |i|
-			right = (i + 1) % layout[:columns] == 0
-			bottom = ((i + 1).to_f / layout[:columns].to_f).ceil % layout[:rows] == 0
-			right_list += (right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if right
-			not_right_list += (not_right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if !right
-			bottom_list += (bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if bottom
-			not_bottom_list += (not_bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if !bottom 
-		end
+#		(0..CELL_COUNT  - 1).each do |i|
+#			right = (i + 1) % layout[:columns] == 0
+#			bottom = ((i + 1).to_f / layout[:columns].to_f).ceil % layout[:rows] == 0
+#			right_list += (right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if right
+#			not_right_list += (not_right_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if !right
+#			bottom_list += (bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if bottom
+#			not_bottom_list += (not_bottom_list == "" ? "" : ", ") + "li#grid_cell_" + i.to_s if !bottom
+#		end
 %>
 @media <%= query[:query] %> {
 
 	#query_min_height:after {
-		content: "<%= query[:min_height].to_s %>px";
+		content: "<%= query[:min_height].nil? ? "None" : query[:min_height].to_s + "px" %>";
 	}
 
 	#query_min_width:after {
-		content: "<%= query[:min_width].to_s %>px";
+    content: "<%= query[:min_width].nil? ? "None" : query[:min_width].to_s + "px" %>";
 	}
+
+  #query_max_height:after {
+    content: "<%= query[:max_height].nil? ? "None" : query[:max_height].to_s + "px" %>";
+  }
+
+  #query_max_width:after {
+    content: "<%= query[:max_width].nil? ? "None" : query[:max_width].to_s + "px" %>";
+  }
 
 	#layout_info:after {
 		content: "<%= layout_to_html(layout) %>";
@@ -93,6 +130,8 @@
 		min-width: <%= layout[:matrix_width] %>px;
 		height: <%= layout[:matrix_height] %>px;
 		min-height: <%= layout[:matrix_height] %>px;
+    top: <%= (layout[:grid_height_space].to_f / 2.0).floor %>px;
+    left: <%= (layout[:grid_width_space].to_f / 2.0).floor %>px;
 	}
 
 	.grid_cell {
@@ -124,7 +163,7 @@
 		margin-bottom: <%= layout[:grid_height_space] %>px;
 	}
 <% end %>
-}		
-<%	
+}
+<%
 	end
 %>

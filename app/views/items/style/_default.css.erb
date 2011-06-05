@@ -13,17 +13,31 @@ html, body {
 
 #css_info {
 	display: block;
-	background-color: #800000;
-	color: #FFFFFF;  
-	border: 1px dotted #FFF;
+	background-color: #000000;
+	color: #FFFFFF;
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	padding: 5px;
-	margin: 10px;
+	padding: 0;
+	margin: 0;
 	font-size: 10px;
-	line-height: 14px;
-	width: 68%;
+	line-height: 16px;
+	width: 100%;
+  height: 100%;
+}
+
+div#css_info.compressed {
+  margin: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+div#css_info.compressed p, div#css_info.compressed hr  {
+  display: none;
+}
+
+#css_info p {
+  padding: 5px;
 }
 
 #css_info hr {
@@ -57,12 +71,16 @@ html, body {
 }
 
 #main ul {
+  position: relative;
+  top: 0;
+  left: 0;
 	overflow: hidden;
-  	margin: 0 auto;	
+  margin: 0 auto;
 	width: 600px;
 	min-width: 600px;
 	height: 648px;
 	min-height: 648px;
+  background-color: #F00;
 }
 
 #cell {
@@ -85,8 +103,8 @@ html, body {
 }
 
 .grid_item {
-  margin:  0
-  padding: 0
+  margin:  0;
+  padding: 0;
   position: absolute;
   top: 0;
   left: 0;

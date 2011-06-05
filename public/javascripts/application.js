@@ -5,13 +5,12 @@ $$(document).ready(function() {
 			setSize();
 	});
 	$$("#css_info").click(function() {
-		setSize();
+		$$("#css_info").toggleClass("compressed");
+    setSize();
 	});
-	setSize();
 });
 
 function setSize() {
-	$$("#css_info").css('opacity', 0.3);
 	$$("#dimensions").html($$(window).width() + " x " + $$(window).height());
 	$$("#aspect_ratio").html((parseFloat($$(window).width()) / parseFloat($$(window).height())).toFixed(3));
 }

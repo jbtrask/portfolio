@@ -54,10 +54,10 @@ def corrected_length(content_length, content_percent)
   (content_length.to_f / (content_percent.to_f / 100.0)).ceil
 end
 
-def layout_to_html(layout) 
-  html = "name:  " + layout[:name] 
-  html += " | cell width:  " + layout[:size][:width].to_s 
-  html += " | cell height:  " + layout[:size][:height].to_s 
+def layout_to_html(layout)
+  html = "name:  " + layout[:name]
+  html += " | cell width:  " + layout[:size][:width].to_s
+  html += " | cell height:  " + layout[:size][:height].to_s
   html += " | rows:  " + layout[:rows].to_s
   html += " | columns:  " + layout[:columns].to_s
   html += " | grid width space:  " + layout[:grid_width_space].to_s
@@ -81,9 +81,9 @@ def layout_info(name, size, rows, columns, horizontal_content, vertical_content)
   info[:columns] = columns
   info[:grid_width_space] = space(size[:width], GRID_PADDING, MIN_GRID_SPACE)
   info[:grid_height_space] = space(size[:height], GRID_PADDING, MIN_GRID_SPACE)
-  info[:matrix_width] = columns * size[:width] + (columns - 1) * info[:grid_width_space]
-  info[:matrix_height] = rows * size[:height] + (rows - 1) * info[:grid_height_space]
-  info[:matrix_width_space] = space(info[:matrix_width], MATRIX_PADDING, MIN_MATRIX_SPACE)    
+  info[:matrix_width] = columns * (size[:width] + info[:grid_width_space])
+  info[:matrix_height] = rows * (size[:height] + info[:grid_height_space])
+  info[:matrix_width_space] = space(info[:matrix_width], MATRIX_PADDING, MIN_MATRIX_SPACE)
   info[:matrix_height_space] = space(info[:matrix_height], MATRIX_PADDING, MIN_MATRIX_SPACE)
   info[:required_width] = info[:matrix_width] + 2 * info[:matrix_width_space]
   info[:required_height] = info[:matrix_height] + 2 * info[:matrix_height_space]
