@@ -3,30 +3,39 @@
 		memo << { :width => value * GRID_INCREMENT, :height => ((value * GRID_INCREMENT).to_f * GRID_ASPECT_RATIO).round }
 	end
 
+	def get_query(layout, min_width, min_height, max_width, max_height)
+    {
+      :query => "only screen" +
+        (min_width.nil? ? "" : " and (min-width: #{min_width}px)") +
+        (min_height.nil? ? "" : " and (min-height: #{min_height}px)") +
+        (max_width.nil? ? "" : " and (max-width: #{max_width}px)") +
+        (max_height.nil? ? "" : " and (max-height: #{max_height}px)"),
+      :layout => layout,
+      :min_width => min_width,
+      :min_height => min_height,
+      :max_width => max_width,
+      :max_height => max_height
+    }
+	end
+
 	# both are set
 	if !rows.nil? && !columns.nil?
 
 		queries = []
 		sizes.each_with_index do |size, i|
       layout = layout_info(name, size, rows, columns, horizontal_content, vertical_content)
-			next_layout = i == sizes.size - 1 ? nil : layout_info(name, sizes[i + 1], rows, columns, horizontal_content, vertical_content)
-			min_width = i == 0 ? nil : layout[:corrected_required_width]
-			min_height = i == 0 ? nil : layout[:corrected_required_height]
-			max_width = next_layout.nil? ? nil : next_layout[:corrected_required_width] - 1
-      max_height = next_layout.nil? ? nil : next_layout[:corrected_required_height] - 1
-		  queries <<
-        {
-          :query => "only screen" +
-            (min_width.nil? ? "" : " and (min-width: " + min_width.to_s + "px)") +
-            (min_height.nil? ? "" : " and (min-height: " + min_height.to_s + "px)") +
-            (max_width.nil? ? "" : " and (max-width: " + max_width.to_s + "px)") +
-            (max_height.nil? ? "" : " and (max-height: " + max_height.to_s + "px)"),
-          :layout => layout,
-          :min_width => min_width,
-          :min_height => min_height,
-          :max_width => max_width,
-          :max_height => max_height
-        }
+			next_layout = (i == sizes.size - 1 ? nil : layout_info(name, sizes[i + 1], rows, columns, horizontal_content, vertical_content))
+      min_width = (i == 0 ? nil : layout[:corrected_required_width])
+      min_height = (i == 0 ? nil : layout[:corrected_required_height])
+      max_width = nil
+      max_height = (next_layout.nil? ? nil : next_layout[:corrected_required_height] - 1)
+		  queries << get_query(layout, min_width, min_height, max_width, max_height)
+		  if !next_layout.nil?
+		    min_height = max_height + 1
+		    max_height = nil
+		    max_width = next_layout[:corrected_required_width] - 1
+  		  queries << get_query(layout, min_width, min_height, max_width, max_height)
+		  end
 		end
 
 	# one is set, the other is maxed
@@ -39,49 +48,25 @@
 			if !rows.nil?
 				(MATRIX_MIN_WIDTH..MATRIX_MAX_WIDTH).each do |column_count|
 					layout = layout_info(name, size, rows, column_count, horizontal_content, vertical_content)
-          next_width = column_count == MATRIX_MAX_WIDTH ? nil : layout_info(name, size, rows, column_count + 1, horizontal_content, vertical_content)
-          next_height = i == sizes.size - 1 ? nil : layout_info(name, sizes[i + 1], rows, column_count, horizontal_content, vertical_content)
+          next_width = column_count == MATRIX_MAX_WIDTH ? nil : layout_info(name, size, rows, column_count + 1, horizontal_content, vertical_content)[:corrected_required_width]
+          next_height = i == sizes.size - 1 ? nil : layout_info(name, sizes[i + 1], rows, column_count, horizontal_content, vertical_content)[:corrected_required_height]
 					min_width = (column_count == MATRIX_MIN_WIDTH ? nil : layout[:corrected_required_width])
 					min_height = (i == 0 ? nil : layout[:corrected_required_height])
 					max_width = next_width.nil? ? nil : next_width - 1
 					max_height = next_height.nil? ? nil : next_height - 1
-					queries <<
-          {
-            :query => "only screen" +
-              (min_width.nil? ? "" : " and (min-width: " + min_width.to_s + "px)") +
-              (min_height.nil? ? "" : " and (min-height: " + min_height.to_s + "px)") +
-              (max_width.nil? ? "" : " and (max-width: " + max_width.to_s + "px)") +
-              (max_height.nil? ? "" : " and (max-height: " + max_height.to_s + "px)"),
-            :layout => layout,
-            :min_width => min_width,
-            :min_height => min_height,
-            :max_width => max_width,
-            :max_height => max_height
-          }
+					queries << get_query(layout, min_width, min_height, max_width, max_height)
 				end
 			# column provided, auto row
 			else
 				(MATRIX_MIN_HEIGHT..MATRIX_MAX_HEIGHT).each do |row_count|
 					layout = layout_info(name, size, row_count, columns, horizontal_content, vertical_content)
-          next_width = i == sizes.size - 1 ? nil : layout_info(name, size[i + 1], row_count, columns, horizontal_content, vertical_content)
-          next_height = row_count == MATRIX_MAX_HEIGHT ? nil : layout_info(name, size, row_count + 1, columns, horizontal_content, vertical_content)
+          next_width = (i == sizes.size - 1 ? nil : layout_info(name, sizes[i + 1], row_count, columns, horizontal_content, vertical_content)[:corrected_required_width])
+          next_height = row_count == MATRIX_MAX_HEIGHT ? nil : layout_info(name, size, row_count + 1, columns, horizontal_content, vertical_content)[:corrected_required_height]
 					min_width = (i == 0 ? nil : layout[:corrected_required_width])
 					min_height = (row_count == MATRIX_MIN_HEIGHT ? nil : layout[:corrected_required_height])
 					max_width = next_width.nil? ? nil : next_width - 1
 					max_height = next_height.nil? ? nil : next_height - 1
-					queries <<
-          {
-            :query => "only screen" +
-              (min_width.nil? ? "" : " and (min-width: " + min_width.to_s + "px)") +
-              (min_height.nil? ? "" : " and (min-height: " + min_height.to_s + "px)") +
-              (max_width.nil? ? "" : " and (max-width: " + max_width.to_s + "px)") +
-              (max_height.nil? ? "" : " and (max-height: " + max_height.to_s + "px)"),
-            :layout => layout,
-            :min_width => min_width,
-            :min_height => min_height,
-            :max_width => max_width,
-            :max_height => max_height
-          }
+					queries << get_query(layout, min_width, min_height, max_width, max_height)
 				end
 			end
 		end

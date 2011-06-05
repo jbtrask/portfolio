@@ -1,9 +1,12 @@
 var $$ = jQuery.noConflict();
 
 $$(document).ready(function() {
-	$$(window).resize(function() {
-			setSize();
-	});
+
+  $$("#css_info").animate({opacity: 0.5});
+
+//  $$(window).resize(function() {
+//			setSize();
+//	});
 	$$("#css_info").click(function() {
 		$$("#css_info").toggleClass("compressed");
     setSize();
