@@ -2,13 +2,15 @@ Portfolio::Application.routes.draw do
 
   match "test" => "items#test"
 
+  match "mobile" => "items#mobile"
+  
   resources :periods
 
   resources :media
 
   resources :classifications
 
-  root :controller => "items", :action => "demo"
+  root :controller => "items", :action => "mobile"
 
   match "/demo" => "items#demo"
 
