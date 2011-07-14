@@ -5,7 +5,7 @@ $$(document).ready(function() {
 	setSize();
 	
 	$$(window).swipe(function() { alert('swipe'); });
-	$$(window).scrollstop(function() { alert('scroll'); });
+	//$$(window).scrollstop(function() { alert('scroll'); });
 	$$(window).orientationchange(function() { alert('orientation'); });	
 	
 });
