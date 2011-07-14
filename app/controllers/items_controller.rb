@@ -48,7 +48,7 @@ MINIMUM_LAYOUT = {
 THUMBNAIL_WIDTH = 50 #px
 THUMBNAIL_HEIGHT = 81 #px
 THUMBNAIL_MARGIN = 2 #px
-THUMBNAIL_COLUMNS = 4
+THUMBNAIL_COLUMNS = 5
 #------------------------------------------
 
 def space(length, percent, min = 0)

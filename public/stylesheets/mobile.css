@@ -27,7 +27,7 @@ ul {
 
 li {
 	float: left;
-	background-color: rgb(220, 220, 180);
+	background-color: rgb(180, 180, 200);
 	border: none;
 	padding: 0;
 	margin: 0;
@@ -38,7 +38,7 @@ li.gray {
 }
 
 .rgba li {
-	background-color: rgba(220, 220, 180, 0.75);
+	background-color: rgba(180, 180, 200, 0.75);
 }
 
 .rgba li.gray {
