@@ -1,21 +1,18 @@
-<div id="page1" data-role="page"> 
-	<div  data-role="header">Header</div> 
-	<div  data-role="content">
-		<p>Content for Page 1</p>
-		<p>Go to <a href="#page2">Page 2</a></p>
-	</div> 
-	<div  data-role="footer">Footer</div> 
-</div> 
-
-<div id="page2" data-role="page"> 
-	<div  data-role="header">Header</div> 
-	<div  data-role="content">
-		<p>Content for Page 2</p>
-		<p>Back to <a href="#page1">Page 1</a></p>
-	</div> 
-	<div  data-role="footer">Footer</div> 
-</div> 
-
 <% content_for :head do %>
 	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("mobile") %>" >
+	<%= javascript_include_tag "mobile" %>
 <% end %>
+
+<div id="work" data-role="page"> 
+	<div  data-role="header">Jackie Goldberg</div> 
+	<div  data-role="content">
+		<ul>
+			<% 	gray = false
+				@items.each do |item|
+					gray = !gray %>
+					<li class="<%= gray ? "gray" : "" %>"></li>
+			<% 	end %>
+		</ul>
+	</div> 
+	<!--<div  data-role="footer">Footer</div>--> 
+</div>

@@ -3,9 +3,37 @@ html, body {
 	height: 100%;
 	min-width: 100%;
 	min-height: 100%;
+	max-width: 100%;
+	min-width: 100%;
+	overflow: hidden;
+	position: relative;
+
 }
 
-body > div {
-	height: 100%;
-	min-height 100%;
+div[data-role="header"] {
+	height: 80px;	
+}
+
+div[data-role="content"] {
+	height: auto;	
+}
+
+li {
+	display: inline-block;
+	width: 28%;
+	height: 50px;
+	margin-right: 4%;
+	background-color: rgb(220, 220, 180);
+}
+
+li.gray {
+	background-color:  rgb(180, 180, 180);
+}
+
+.rgba li {
+	background-color: rgba(220, 220, 180, 0.75);
+}
+
+.rgba li.gray {
+	background-color: rgba(180, 180, 180, 0.75);
 }

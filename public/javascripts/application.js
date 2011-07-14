@@ -1,22 +1,22 @@
 var $$ = jQuery.noConflict();
 
 $$(document).ready(function() {
-
-  $$("#css_info").animate({opacity: 0.5});
-
-//  $$(window).resize(function() {
-//			setSize();
-//	});
-	$$("#css_info").click(function() {
-		$$("#css_info").toggleClass("compressed");
-    setSize();
-	});
+// 
+  // $$("#css_info").animate({opacity: 0.5});
+// 
+// //  $$(window).resize(function() {
+// //			setSize();
+// //	});
+	// $$("#css_info").click(function() {
+		// $$("#css_info").toggleClass("compressed");
+    // setSize();
+	// });
 });
-
-function setSize() {
-	$$("#dimensions").html($$(window).width() + " x " + $$(window).height());
-	$$("#aspect_ratio").html((parseFloat($$(window).width()) / parseFloat($$(window).height())).toFixed(3));
-}
+// 
+// function setSize() {
+	// $$("#dimensions").html($$(window).width() + " x " + $$(window).height());
+	// $$("#aspect_ratio").html((parseFloat($$(window).width()) / parseFloat($$(window).height())).toFixed(3));
+// }
 
 
 /*

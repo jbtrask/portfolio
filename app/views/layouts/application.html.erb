@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Jackie Goldberg</title>
-    <meta name="copyright" content="Jackie Goldberg 1995-2011" >
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-    <meta http-equiv="window-target" content="_top" >
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
-	<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("reset") %>" >
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css" />
-	<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>	
-	<%= javascript_include_tag "modernizr-1.7.min" %>
-	<%= javascript_include_tag :defaults %>
-	<%= yield :head %>
-  </head>
-  <body>
-    <%= yield %>
-  </body>
+	<head>
+	    <title>Jackie Goldberg</title>
+	    <meta name="copyright" content="Jackie Goldberg 1995-2011" >
+
+	    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	    <meta http-equiv="window-target" content="_top" >
+	    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+		
+		<link rel="stylesheet" type="text/css" href="<%= stylesheet_path("reset") %>">
+		
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.css">
+		<script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
+		
+		<%= javascript_include_tag "modernizr.2.custom" %>
+		
+		<%= javascript_include_tag :defaults %>
+		
+		<%= yield :head %>	  
+	</head>
+  	<body>
+    	<%= yield %>
+	</body>
 </html>

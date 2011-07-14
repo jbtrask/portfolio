@@ -216,4 +216,8 @@ class ItemsController < ApplicationController
     end
   end
 
+  def mobile
+    @items = Item.all.shuffle  
+  end
+  
 end
