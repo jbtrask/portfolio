@@ -8,7 +8,8 @@ $$(document).ready(function() {
 
 function setSize() {
 	console.log('setSize');
-	$$("li").each(function() {$
+/*
+ 	$$("li").each(function() {$
 		this.css("width", $(window).width * 0.26);
 		this.css("margin-right", )
 		
@@ -16,4 +17,5 @@ function setSize() {
 		$(this).css("margin-right: 2%");
 		$(this).css("margin-bottom: 2%");
 	});
+*/
 }

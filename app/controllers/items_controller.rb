@@ -44,6 +44,13 @@ MINIMUM_LAYOUT = {
   'super_wide_landscape' => [1, 1, CONTENT_PERCENT['long'], 100.0]
 }
 
+#------------------------------------------
+THUMBNAIL_WIDTH = 50 #px
+THUMBNAIL_HEIGHT = 81 #px
+THUMBNAIL_MARGIN = 2 #px
+THUMBNAIL_COLUMNS = 4
+#------------------------------------------
+
 def space(length, percent, min = 0)
   space = (length.to_f * percent.to_f / 100.0).floor
   space = space < min.to_i ? min.to_i : space

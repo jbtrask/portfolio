@@ -5,25 +5,31 @@ html, body {
 	min-height: 100%;
 	max-width: 100%;
 	min-width: 100%;
-	overflow: hidden;
 	position: relative;
 
 }
 
 div[data-role="header"] {
-	height: 80px;	
+	height: 40px;
+	background-color: rgb(0, 0, 0);
 }
 
 div[data-role="content"] {
-	height: auto;	
+	background-color: rgb(250, 250, 250);	
+}
+
+ul {
+	border: none;
+	margin: 0 auto;
+	padding: 0;	
 }
 
 li {
-	display: inline-block;
-	width: 28%;
-	height: 50px;
-	margin-right: 4%;
+	float: left;
 	background-color: rgb(220, 220, 180);
+	border: none;
+	padding: 0;
+	margin: 0;
 }
 
 li.gray {
@@ -36,4 +42,12 @@ li.gray {
 
 .rgba li.gray {
 	background-color: rgba(180, 180, 180, 0.75);
+}
+
+.rgba div[data-role="header"] {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.rgba div[data-role="content"] {
+	background-color: rgba(250, 250, 250, 1.0);	
 }

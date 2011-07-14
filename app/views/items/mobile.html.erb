@@ -6,11 +6,11 @@
 <div id="work" data-role="page"> 
 	<div  data-role="header">Jackie Goldberg</div> 
 	<div  data-role="content">
-		<ul>
+		<ul style="width: <%= THUMBNAIL_WIDTH * THUMBNAIL_COLUMNS + THUMBNAIL_MARGIN * (THUMBNAIL_COLUMNS - 1) %>px;">
 			<% 	gray = false
-				@items.each do |item|
+				@items.each_with_index do |item, idx|
 					gray = !gray %>
-					<li class="<%= gray ? "gray" : "" %>"></li>
+					<li style="width: <%= THUMBNAIL_WIDTH %>px; height: <%= THUMBNAIL_HEIGHT %>px; margin-right: <%= (idx + 1) % THUMBNAIL_COLUMNS == 0 ? "0" : "#{THUMBNAIL_MARGIN}px" %>; margin-bottom: <%= THUMBNAIL_MARGIN %>px;" class="<%= gray ? "gray" : "" %>"></li>
 			<% 	end %>
 		</ul>
 	</div> 
