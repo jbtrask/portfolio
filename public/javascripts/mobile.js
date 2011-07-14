@@ -3,7 +3,11 @@ $$(document).ready(function() {
 
 	$$(window).resize(setSize());
 	setSize();
-		
+	
+	$$(window).swipe(function() { alert('swipe'); });
+	$$(window).scrollstop(function() { alert('scroll'); });
+	$$(window).orientationchange(function() { alert('orientation'); });	
+	
 });
 
 function setSize() {
